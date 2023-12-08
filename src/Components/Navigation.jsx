@@ -1,5 +1,13 @@
 import React from "react";
-import {IconFileLike, IconHome, IconReceipt, IconUser, IconUserCircle, IconUsers} from "@tabler/icons-react";
+import {
+    IconFileLike,
+    IconHome,
+    IconPhoneCall,
+    IconReceipt,
+    IconUser,
+    IconUserCircle,
+    IconUsers
+} from "@tabler/icons-react";
 import {Link} from "react-scroll";
 export default function Navigation(){
     return(
@@ -13,6 +21,9 @@ export default function Navigation(){
                     </Link>
                     <Link to="portofolio" activeClass="active" className="cursor-pointer flex w-[50px] h-[50px] justify-center items-center hover:bg-blue-200 rounded-full" offset={-100} smooth={true} spy={true}>
                         <IconFileLike/>
+                    </Link>
+                    <Link to="contact" activeClass="active" className="cursor-pointer flex w-[50px] h-[50px] justify-center items-center hover:bg-blue-200 rounded-full" offset={-100} smooth={true} spy={true}>
+                        <IconPhoneCall/>
                     </Link>
                 </div>
             </div>
