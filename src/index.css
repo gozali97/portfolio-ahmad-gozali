@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@400;700;900&display=swap");
+
+body {
+    /*background: url("../public/images/bg-gradient.jpg");*/
+    /*background-size: cover;*/
+    overflow-x: hidden;
+}
+
+.active {
+    background: linear-gradient(45deg, #4b93f8 20%, #4453ce 70%);
+    border-radius: 50%;
+    color: #fff;
+}
+
+.text-gradient {
+    @apply bg-gradient-to-r text-transparent bg-clip-text from-[#ff014f] to-[#011eff] font-bold;
+}
+
+.bg-gradient {
+    background: linear-gradient(
+        92.23deg,
+        #0417a8 21.43%,
+        #0a7fb7 50.63%,
+        #0567ea 100%,
+        #02175e 117.04%
+    );
+}
+.section {
+    @apply py-8 lg:py-24 lg:h-screen flex items-center;
+}
