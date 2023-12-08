@@ -20,10 +20,10 @@ export default function Header(){
                          data-aos-duration="3000"
                          data-aos-delay="0"
                     >
-                        <a href="">
+                        <a href="https://github.com/gozali97" target="_blank">
                             <IconBrandGithub className="text-white font-semibold"/>
                         </a>
-                        <a href="">
+                        <a href="https://www.linkedin.com/in/ahmad-gozali" target="_blank">
                             <IconBrandLinkedin className="text-white font-semibold"/>
                         </a>
                     </div>
