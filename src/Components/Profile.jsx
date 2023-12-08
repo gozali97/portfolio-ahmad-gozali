@@ -14,12 +14,12 @@ export default function Profile(){
                 </div>
                 <div className="flex flex-col lg:flex-row items-start justify-between">
                     <div className="text-center w-full max-w-[400px] mx-auto mb-[50px] flex justify-center flex-col items-center">
-                        <div className="max-w-[300px] max-h-[300px] bg-gradient pt-[50px] rounded-full overflow-hidden">
-                            <img className="" src="/images/profile.png" alt=""/>
+                        <div className="max-w-[300px] max-h-[300px] bg-gradient rounded-full overflow-hidden">
+                            <img className="w-full" src="/images/ahmad.jpg" alt=""/>
                         </div>
                         <h2 className="text-gradient text-[50px] mt-[20px]">Ahmad Gozali</h2>
                     </div>
-                    <div className="w-full lg:pt-[50px] lg:ml-5">
+                    <div className="w-full lg:ml-5">
                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
                             <div className="w-full">
                                 <div className="bg-white h-full justify-center items-center flex rounded-lg overflow-hidden relative p-5 group">
