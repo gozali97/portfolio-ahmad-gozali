@@ -8,6 +8,7 @@ import Profile from "./Components/Profile"
 import Portofolio from "./Components/Portofolio"
 import Footer from "./Components/Footer"
 import Contact from "./Components/Contact"
+import { ThemeProvider } from "./context/ThemeContext"
 
 function App() {
   useEffect(() => {
@@ -15,15 +16,17 @@ function App() {
   }, [])
 
   return (
-    <div className="bg-gray-900">
-      <Header />
-      <Navigation />
-      <Banner />
-      <Profile />
-      <Portofolio />
-      <Contact />
-      <Footer />
-    </div>
+    <ThemeProvider>
+      <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
+        <Header />
+        <Navigation />
+        <Banner />
+        <Profile />
+        <Portofolio />
+        <Contact />
+        <Footer />
+      </div>
+    </ThemeProvider>
   )
 }
 

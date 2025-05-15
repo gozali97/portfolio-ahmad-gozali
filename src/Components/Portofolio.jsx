@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useTheme } from "../context/ThemeContext"
 import {
   IconBrandGithub,
   IconExternalLink,
@@ -12,7 +13,8 @@ import {
   IconMail,
 } from "@tabler/icons-react"
 
-export default function Portfolio() {
+export default function Portofolio() {
+  const { theme } = useTheme()
   // State for filtering projects
   const [filter, setFilter] = useState("all")
 
@@ -219,7 +221,7 @@ export default function Portfolio() {
     return (
       <span
         key={tech}
-        className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-800 text-indigo-300 border border-gray-700 mr-2 mb-2"
+        className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-200 dark:bg-gray-800 text-blue-800 dark:text-indigo-300 border border-blue-800 dark:border-gray-700 mr-2 mb-2"
       >
         {icon}
         {tech}
@@ -228,14 +230,19 @@ export default function Portfolio() {
   }
 
   return (
-    <div id="portofolio" className="py-10 bg-gray-900">
+    <div
+      id="portofolio"
+      className={`py-10 ${
+        theme === "dark" ? "bg-gray-900" : "bg-white"
+      } transition-colors duration-300`}
+    >
       <div className="container mx-auto max-w-[1200px] px-6">
         {/* Section header */}
         <div className="text-center mb-16">
           <h4
             data-aos="fade-up"
             data-aos-duration="1000"
-            className="text-indigo-400 text-sm uppercase font-semibold tracking-wider mb-2"
+            className="text-indigo-600 dark:text-indigo-400 text-sm uppercase font-semibold tracking-wider mb-2"
           >
             Featured Projects
           </h4>
@@ -243,7 +250,7 @@ export default function Portfolio() {
             data-aos="fade-up"
             data-aos-duration="1000"
             data-aos-delay="100"
-            className="text-3xl md:text-4xl font-bold text-white mb-6"
+            className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6"
           >
             My Professional Work
           </h2>
@@ -257,7 +264,7 @@ export default function Portfolio() {
             data-aos="fade-up"
             data-aos-duration="1000"
             data-aos-delay="300"
-            className="text-gray-300 max-w-2xl mx-auto mb-6"
+            className="text-gray-800 dark:text-gray-300 max-w-2xl mx-auto mb-6"
           >
             I'm currently working at PT Apotek K-24 in Yogyakarta, Indonesia,
             where I develop enterprise-grade applications. Below are some of my
@@ -269,9 +276,9 @@ export default function Portfolio() {
             data-aos="fade-up"
             data-aos-duration="1000"
             data-aos-delay="400"
-            className="mb-16 mt-8 py-8 px-4 bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700 max-w-4xl mx-auto"
+            className="mb-16 mt-8 py-8 px-4 bg-blue-100 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl border border-blue-600 dark:border-gray-700 max-w-4xl mx-auto"
           >
-            <h3 className="text-xl font-semibold text-white mb-6">
+            <h3 className="text-xl font-semibold text-blue-700 dark:text-white mb-6">
               Featured Live Projects
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -283,7 +290,7 @@ export default function Portfolio() {
                     href={project.demoLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex flex-col px-4 py-3 bg-gray-800/90 rounded-lg border border-gray-700 hover:border-indigo-500/50 transition-all duration-300 group hover:bg-gray-800 hover:shadow-lg"
+                    className="flex flex-col px-4 py-3 bg-blue-800 dark:bg-gray-800/90 rounded-lg border border-gray-700 dark:border-blue-600 hover:dark:border-indigo-500/50 transition-all duration-300 group hover:bg-blue-700 hover:dark:bg-gray-700 hover:shadow-lg hover:dark:bg-gray-800/90"
                   >
                     <div className="flex items-center mb-2">
                       <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
@@ -316,7 +323,7 @@ export default function Portfolio() {
               className={`px-5 py-2.5 rounded-lg transition-all duration-300 font-medium flex items-center ${
                 filter === "all"
                   ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/20 scale-105"
-                  : "bg-gray-800/80 text-gray-300 hover:bg-gray-700 border border-gray-700"
+                  : "bg-blue-100 dark:bg-gray-800 text-gray-700 dark:text-gray-400 hover:bg-blue-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white"
               }`}
             >
               <IconLayoutGrid size={18} className="mr-2" />
@@ -327,7 +334,7 @@ export default function Portfolio() {
               className={`px-5 py-2.5 rounded-lg transition-all duration-300 font-medium flex items-center ${
                 filter === "frontend"
                   ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/20 scale-105"
-                  : "bg-gray-800/80 text-gray-300 hover:bg-gray-700 border border-gray-700"
+                  : "bg-blue-100 dark:bg-gray-800 text-gray-700 dark:text-gray-400 hover:bg-blue-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white"
               }`}
             >
               <IconDeviceLaptop size={18} className="mr-2" />
@@ -338,7 +345,7 @@ export default function Portfolio() {
               className={`px-5 py-2.5 rounded-lg transition-all duration-300 font-medium flex items-center ${
                 filter === "backend"
                   ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/20 scale-105"
-                  : "bg-gray-800/80 text-gray-300 hover:bg-gray-700 border border-gray-700"
+                  : "bg-blue-100 dark:bg-gray-800 text-gray-700 dark:text-gray-400 hover:bg-blue-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white"
               }`}
             >
               <IconServer size={18} className="mr-2" />
@@ -349,7 +356,7 @@ export default function Portfolio() {
               className={`px-5 py-2.5 rounded-lg transition-all duration-300 font-medium flex items-center ${
                 filter === "fullstack"
                   ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/20 scale-105"
-                  : "bg-gray-800/80 text-gray-300 hover:bg-gray-700 border border-gray-700"
+                  : "bg-blue-100 dark:bg-gray-800 text-gray-700 dark:text-gray-400 hover:bg-blue-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white"
               }`}
             >
               <IconStack size={18} className="mr-2" />
@@ -360,7 +367,7 @@ export default function Portfolio() {
               className={`px-5 py-2.5 rounded-lg transition-all duration-300 font-medium flex items-center ${
                 filter === "live"
                   ? "bg-green-600 text-white shadow-lg shadow-green-500/20 scale-105"
-                  : "bg-gray-800/80 text-gray-300 hover:bg-gray-700 border border-gray-700"
+                  : "bg-blue-100 dark:bg-gray-800 text-gray-700 dark:text-gray-400 hover:bg-blue-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white"
               }`}
             >
               <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
@@ -377,7 +384,7 @@ export default function Portfolio() {
               data-aos="fade-up"
               data-aos-duration="1000"
               data-aos-delay={`${(project.id % 3) * 100}`}
-              className="bg-gray-800/70 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-700 hover:border-indigo-500/50 transition-all duration-300 group shadow-xl hover:shadow-indigo-500/10 flex flex-col h-full"
+              className={`bg-blue-50 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl overflow-hidden border border-blue-200 dark:border-gray-700 hover:border-indigo-500/50 transition-all duration-300 group shadow-sm hover:shadow-md`}
             >
               <div className="relative overflow-hidden h-48">
                 <img
@@ -397,19 +404,19 @@ export default function Portfolio() {
               </div>
 
               <div className="p-6 flex-grow flex flex-col">
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors duration-300 line-clamp-1">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-indigo-400 transition-colors duration-300 line-clamp-1">
                   {project.name}
                 </h3>
-                <p className="text-gray-300 mb-4 line-clamp-2">
+                <p className="text-gray-700 dark:text-gray-400 text-sm mb-4 line-clamp-2">
                   {project.shortDesc}
                 </p>
 
-                <div className="mb-4 flex flex-wrap gap-2">
+                <div className="mb-4 flex flex-wrap gap-2 text-gray-600 dark:text-gray-200">
                   {project.technologies
                     .slice(0, 3)
                     .map((tech) => renderTechBadge(tech))}
                   {project.technologies.length > 3 && (
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-800 text-gray-400 border border-gray-700">
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-200 dark:bg-gray-800 text-blue-800 dark:text-gray-400 border border-blue-800 dark:border-gray-700">
                       +{project.technologies.length - 3} more
                     </span>
                   )}
@@ -418,7 +425,7 @@ export default function Portfolio() {
                 <div className="space-y-2 mb-4 flex-grow">
                   {project.highlights.slice(0, 2).map((highlight, idx) => (
                     <div key={idx} className="flex items-start">
-                      <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-indigo-500 mt-2 mr-2"></div>
+                      <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-indigo-500 mt-2 mr-2"></div>
                       <p className="text-sm text-gray-400 line-clamp-1">
                         {highlight}
                       </p>
@@ -478,21 +485,21 @@ export default function Portfolio() {
         <div
           data-aos="fade-up"
           data-aos-duration="1000"
-          className="mt-24 mb-12 bg-gray-800/70 backdrop-blur-sm rounded-xl border border-gray-700 shadow-xl overflow-hidden"
+          className="mt-24 mb-12 bg-blue-200 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl border border-blue-800 dark:border-gray-700 shadow-xl overflow-hidden"
         >
           <div className="flex flex-col lg:flex-row">
             <div className="p-8 lg:w-1/2 lg:border-r border-gray-700">
-              <h3 className="text-2xl font-bold text-white mb-4">
+              <h3 className="text-2xl font-bold dark:text-white mb-4">
                 Current Position
               </h3>
-              <p className="text-gray-300 mb-4">
+              <p className="dark:text-gray-300 mb-4">
                 Full Stack Developer at{" "}
                 <span className="text-indigo-400 font-medium">
                   PT Apotek K-24
                 </span>
                 , Yogyakarta, Indonesia
               </p>
-              <p className="text-gray-400">
+              <p className="dark:text-gray-400">
                 Leading development of enterprise healthcare applications,
                 implementing best practices, and mentoring junior developers.
               </p>
@@ -500,7 +507,7 @@ export default function Portfolio() {
               <div className="mt-6 pt-6 border-t border-gray-700">
                 <a
                   href="https://www.linkedin.com/in/ahmad-gozali/"
-                  className="inline-flex items-center px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors duration-300 font-medium"
+                  className="inline-flex items-center px-3 py-1.5 bg-blue-500 dark:bg-indigo-100 dark:bg-indigo-600/20 text-white dark:text-indigo-600 dark:text-indigo-400 rounded-lg text-xs"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -510,36 +517,38 @@ export default function Portfolio() {
               </div>
             </div>
 
-            <div className="bg-gray-800/90 p-8 lg:w-1/2">
-              <h3 className="text-xl font-bold text-white mb-6 text-center">
+            <div className="bg-blue-200 dark:bg-gray-800/90 p-8 lg:w-1/2">
+              <h3 className="text-xl font-bold dark:text-white mb-6 text-center">
                 Experience Summary
               </h3>
               <div className="grid grid-cols-2 gap-8 text-center">
-                <div className="p-4 bg-gray-800/80 rounded-lg border border-gray-700">
-                  <div className="text-3xl font-bold text-indigo-400 mb-1">
+                <div className="p-4 bg-blue-500 dark:bg-gray-800/80 rounded-lg border border-blue-800 dark:border-gray-700">
+                  <div className="text-3xl font-bold dark:text-indigo-400 mb-1">
                     20+
                   </div>
-                  <div className="text-sm text-gray-400">
+                  <div className="text-sm dark:text-gray-400">
                     Completed Projects
                   </div>
                 </div>
-                <div className="p-4 bg-gray-800/80 rounded-lg border border-gray-700">
-                  <div className="text-3xl font-bold text-indigo-400 mb-1">
+                <div className="p-4 bg-blue-500 dark:bg-gray-800/80 rounded-lg border border-blue-800 dark:border-gray-700">
+                  <div className="text-3xl font-bold dark:text-indigo-400 mb-1">
                     5+
                   </div>
-                  <div className="text-sm text-gray-400">Years Experience</div>
+                  <div className="text-sm dark:text-gray-400">
+                    Years Experience
+                  </div>
                 </div>
-                <div className="p-4 bg-gray-800/80 rounded-lg border border-gray-700">
-                  <div className="text-3xl font-bold text-indigo-400 mb-1">
+                <div className="p-4 bg-blue-500 dark:bg-gray-800/80 rounded-lg border border-blue-800 dark:border-gray-700">
+                  <div className="text-3xl font-bold dark:text-indigo-400 mb-1">
                     10+
                   </div>
-                  <div className="text-sm text-gray-400">Technologies</div>
+                  <div className="text-sm dark:text-gray-400">Technologies</div>
                 </div>
-                <div className="p-4 bg-gray-800/80 rounded-lg border border-gray-700">
-                  <div className="text-3xl font-bold text-indigo-400 mb-1">
+                <div className="p-4 bg-blue-500 dark:bg-gray-800/80 rounded-lg border border-blue-800 dark:border-gray-700">
+                  <div className="text-3xl font-bold dark:text-indigo-400 mb-1">
                     99%
                   </div>
-                  <div className="text-sm text-gray-400">
+                  <div className="text-sm dark:text-gray-400">
                     Client Satisfaction
                   </div>
                 </div>
