@@ -502,6 +502,7 @@ export default function Portfolio() {
                   href="https://www.linkedin.com/in/ahmad-gozali/"
                   className="inline-flex items-center px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors duration-300 font-medium"
                   target="_blank"
+                  rel="noreferrer"
                 >
                   <IconMail size={18} className="mr-2" />
                   Contact Me

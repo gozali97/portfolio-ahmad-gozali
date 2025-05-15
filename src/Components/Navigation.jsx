@@ -67,8 +67,9 @@ export default function Navigation() {
                                 </Link>
                             ))}
                             <a 
-                                href="#" 
+                                href="/CV_Ahmad Gozali.pdf"
                                 className="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors duration-300 font-medium"
+                                download
                             >
                                 Resume
                             </a>
@@ -107,8 +108,9 @@ export default function Navigation() {
                             </Link>
                         ))}
                         <a 
-                            href="#" 
+                            href="/CV_Ahmad Gozali.pdf" 
                             className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors duration-300 text-xl font-medium mt-4"
+                            download
                         >
                             Resume
                         </a>

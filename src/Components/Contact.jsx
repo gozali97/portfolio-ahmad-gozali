@@ -230,7 +230,7 @@ export default function Contact() {
                   />
                   <label htmlFor="terms" className="ml-2 text-sm text-gray-400">
                     I agree to the{" "}
-                    <a href="#" className="text-indigo-400 hover:underline">
+                    <a href="/privacy-policy" className="text-indigo-400 hover:underline">
                       privacy policy
                     </a>{" "}
                     and consent to being contacted regarding my inquiry.

@@ -1,4 +1,4 @@
-import React from "react";
+// Header component
 
 export default function Header() {
     // This component is now minimal since we've moved navigation to the Navigation component
