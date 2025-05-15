@@ -228,7 +228,7 @@ export default function Portfolio() {
   }
 
   return (
-    <div id="portofolio" className="py-28 bg-gray-900">
+    <div id="portofolio" className="py-10 bg-gray-900">
       <div className="container mx-auto max-w-[1200px] px-6">
         {/* Section header */}
         <div className="text-center mb-16">

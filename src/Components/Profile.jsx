@@ -4,6 +4,13 @@ export default function Profile() {
     // Technical skills with proficiency levels and years of experience
     const technicalSkills = [
         {
+            name: 'Next JS',
+            desc: 'Server-side rendering, static site generation, and API routes',
+            image: '/images/nextjs.svg',
+            proficiency: 88,
+            years: 3
+        },
+        {
             name: 'React JS',
             desc: 'Building scalable SPAs with Redux, Context API, and React Query',
             image: '/images/react-js.png',
@@ -32,11 +39,32 @@ export default function Profile() {
             years: 5
         },
         {
+            name: 'PostgreSQL',
+            desc: 'Advanced relational database, complex queries, and performance optimization',
+            image: '/images/pgsql.svg',
+            proficiency: 85,
+            years: 4
+        },
+        {
             name: 'MySQL',
             desc: 'Database design, optimization, and performance tuning',
             image: '/images/mysql.png',
             proficiency: 85,
             years: 5
+        },
+        {
+            name: 'Node.js',
+            desc: 'Building scalable backend services, REST APIs, and microservices',
+            image: '/images/node-js.png',
+            proficiency: 85,
+            years: 3
+        },
+        {
+            name: 'PHP',
+            desc: 'Object-oriented programming, APIs, and enterprise applications',
+            image: '/images/php.svg',
+            proficiency: 95,
+            years: 6
         },
         {
             name: 'JavaScript',
@@ -72,7 +100,7 @@ export default function Profile() {
     ];
 
     return (
-        <div id="profile" className="section py-20">
+        <div id="profile" className="py-10">
             <div className="container mx-auto max-w-[1200px] p-6 overflow-hidden">
                 {/* Section header */}
                 <div className="text-center mb-16">
