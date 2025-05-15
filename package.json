@@ -1,6 +1,6 @@
 {
   "name": "portfolio-ahmad-gozali",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "dependencies": {
     "@tabler/icons-react": "^2.42.0",
