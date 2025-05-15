@@ -486,7 +486,7 @@ export default function Portfolio() {
                 Current Position
               </h3>
               <p className="text-gray-300 mb-4">
-                Senior Full Stack Developer at{" "}
+                Full Stack Developer at{" "}
                 <span className="text-indigo-400 font-medium">
                   PT Apotek K-24
                 </span>

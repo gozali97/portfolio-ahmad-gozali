@@ -41,7 +41,7 @@ export default function Contact() {
             data-aos-delay="300"
             className="text-gray-300 max-w-2xl mx-auto mb-10"
           >
-            I'm currently available for freelance work and full-time senior
+            I'm currently available for freelance work and full-time full stack
             developer positions. If you're looking for a developer with
             extensive experience in building scalable web applications, let's
             discuss how I can contribute to your project or team.
@@ -129,7 +129,7 @@ export default function Contact() {
                 <ul className="space-y-2 text-gray-300">
                   <li className="flex items-center">
                     <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2"></div>
-                    Senior Developer Positions
+                    Full Stack Developer Positions
                   </li>
                   <li className="flex items-center">
                     <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2"></div>
@@ -230,7 +230,10 @@ export default function Contact() {
                   />
                   <label htmlFor="terms" className="ml-2 text-sm text-gray-400">
                     I agree to the{" "}
-                    <a href="/privacy-policy" className="text-indigo-400 hover:underline">
+                    <a
+                      href="/privacy-policy"
+                      className="text-indigo-400 hover:underline"
+                    >
                       privacy policy
                     </a>{" "}
                     and consent to being contacted regarding my inquiry.

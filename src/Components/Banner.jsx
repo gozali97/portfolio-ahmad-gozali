@@ -17,7 +17,7 @@ export default function Banner() {
         >
           <div className="mx-auto max-w-4xl text-center">
             <h4 className="text-md font-semibold text-indigo-400 mb-2">
-              SENIOR DEVELOPER WITH 5+ YEARS EXPERIENCE
+              FULL STACK DEVELOPER WITH 4+ YEARS EXPERIENCE
             </h4>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
               Ahmad Gozali
@@ -42,10 +42,10 @@ export default function Banner() {
               />
             </div>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-7 text-gray-300 font-light">
-              A senior full-stack developer with extensive experience in
-              building scalable web applications. I specialize in Laravel,
-              React, and Vue.js development with a proven track record of
-              delivering enterprise-grade solutions for diverse business needs.
+              A full-stack developer with extensive experience in building
+              scalable web applications. I specialize in Laravel, React, and
+              Vue.js development with a proven track record of delivering
+              enterprise-grade solutions for diverse business needs.
             </p>
 
             <div className="mt-10 flex flex-wrap justify-center gap-4">

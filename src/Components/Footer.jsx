@@ -27,9 +27,9 @@ export default function Footer() {
               <h3 className="text-xl font-bold text-white">Ahmad Gozali</h3>
             </div>
             <p className="text-gray-400 mb-6">
-              Senior Full Stack Developer specializing in Laravel, React, and
-              Vue.js with 5+ years of professional experience building
-              enterprise applications.
+              Full Stack Developer specializing in Laravel, React, and Vue.js
+              with 5+ years of professional experience building enterprise
+              applications.
             </p>
             <div className="flex space-x-4">
               <a
@@ -158,7 +158,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm">
           <p>&copy; {currentYear} Ahmad Gozali. All rights reserved.</p>
           <div className="mt-4 md:mt-0">
-            <p>Senior Full Stack Developer | Laravel & React Expert</p>
+            <p>Full Stack Developer | Laravel & React Expert</p>
           </div>
         </div>
       </div>
