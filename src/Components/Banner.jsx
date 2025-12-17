@@ -1,150 +1,161 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { TypeAnimation } from "react-type-animation"
-import { IconCode, IconDatabase, IconDeviceDesktop } from "@tabler/icons-react"
-import { useTheme } from "../context/ThemeContext"
+import { IconBrandGithub, IconBrandLinkedin, IconBrandInstagram, IconMail, IconCode } from "@tabler/icons-react"
+import { supabase } from "../utils/supabaseClient"
 
 export default function Banner() {
-  const { theme } = useTheme()
+  const [profile, setProfile] = useState({
+    full_name: "Ahmad Gozali",
+    headline: "Building Digital Experiences",
+    titles: ["Full Stack Developer", "Tech Enthusiast"],
+    about_short: "I turn complex problems into elegant solutions.",
+    avatar_url: null,
+    github_url: "",
+    linkedin_url: "",
+    instagram_url: ""
+  })
+  
+  const [topTech, setTopTech] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      // Fetch Profile
+      const { data: profileData } = await supabase.from('profile').select('*').single()
+      if (profileData) setProfile(profileData)
+
+      // Fetch Top 5 Tech Stacks (sorted by proficiency)
+      const { data: techData } = await supabase
+        .from('tech_stacks')
+        .select('name, image_url')
+        .order('proficiency', { ascending: false })
+        .limit(5)
+      
+      if (techData) setTopTech(techData)
+    }
+    fetchData()
+  }, [])
 
   return (
-    <div
-      id="banner"
-      className={`section flex justify-center pt-24 lg:pt-32 ${
-        theme === "dark" ? "bg-gray-900" : "bg-white"
-      }`}
-    >
-      <section className="relative w-full py-12 sm:py-16 lg:pt-20 xl:pb-0">
-        {/* Background gradient elements */}
-        <div className="absolute left-1/2 top-1/4 h-96 w-96 -translate-x-1/2 rounded-full bg-indigo-600/20 blur-3xl"></div>
-        <div className="absolute right-1/4 top-1/3 h-64 w-64 rounded-full bg-blue-600/20 blur-3xl"></div>
+    <div id="banner" className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-white dark:bg-gray-900">
+      {/* Background Grid Pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+      <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-cyan-400 opacity-20 blur-[100px]"></div>
 
-        <div
-          data-aos="fade-up"
-          data-aos-duration="1500"
-          className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
-        >
-          <div className="mx-auto max-w-4xl text-center">
-            <h4
-              className={`text-md font-semibold ${
-                theme === "dark" ? "text-indigo-400" : "text-indigo-600"
-              } mb-2`}
-            >
-              FULL STACK DEVELOPER WITH 4+ YEARS EXPERIENCE
-            </h4>
-            <h1
-              className={`text-4xl md:text-5xl lg:text-6xl font-bold ${
-                theme === "dark" ? "text-white" : "text-gray-900"
-              } mb-6`}
-            >
-              Ahmad Gozali
+      <div className="container mx-auto px-6 z-10">
+        <div className="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-20">
+          
+          {/* Text Content */}
+          <div className="flex-1 text-center lg:text-left">
+            <div className="inline-block px-4 py-1.5 mb-6 rounded-full bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800">
+              <span className="text-sm font-semibold text-blue-600 dark:text-blue-300 uppercase tracking-wider">
+                Available for hire
+              </span>
+            </div>
+            
+            <h1 className="text-5xl lg:text-7xl font-bold tracking-tight text-slate-900 dark:text-white mb-6">
+              Hi, I'm <br />
+              <span className="text-blue-600 dark:text-cyan-400 drop-shadow-sm">
+                {profile.full_name}
+              </span>
             </h1>
-            <div className="text-2xl md:text-3xl lg:text-4xl text-gray-900 dark:text-white font-bold mb-8 h-16 flex items-center justify-center">
-              <span className="mr-3 dark:text-white text-gray-900">I'm a</span>
+
+            <div className="text-xl lg:text-2xl text-slate-600 dark:text-gray-300 font-medium mb-8 h-8">
               <TypeAnimation
-                sequence={[
-                  "Full Stack Developer",
-                  2000,
-                  "Frontend Specialist",
-                  2000,
-                  "Laravel Expert",
-                  2000,
-                  "Solution Architect",
-                  2000,
-                ]}
+                sequence={
+                  profile.titles && profile.titles.length > 0 
+                    ? profile.titles.flatMap(t => [t, 2000]) 
+                    : ["Developer", 2000, "Creator", 2000]
+                }
                 wrapper="span"
                 speed={50}
-                className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-blue-500"
                 repeat={Infinity}
               />
             </div>
-            <p
-              className={`mx-auto mt-6 max-w-2xl text-lg leading-7 ${
-                theme === "dark" ? "text-gray-300" : "text-gray-700"
-              } font-light`}
-            >
-              A full-stack developer with extensive experience in building
-              scalable web applications. I specialize in Laravel, React, and
-              Vue.js development with a proven track record of delivering
-              enterprise-grade solutions for diverse business needs.
+
+            <p className="text-lg text-slate-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+              {profile.about_short}
             </p>
 
-            <div className="mt-10 flex flex-wrap justify-center gap-4">
-              <a
-                href="#contact"
-                className={`px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors duration-300 font-medium flex items-center justify-center shadow-md hover:shadow-lg`}
-              >
-                Contact Me
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+              <a href="#contact" className="btn-primary px-8 py-3.5 rounded-full font-semibold w-full sm:w-auto">
+                Let's Talk
               </a>
-              <a
-                href="#portofolio"
-                className={`px-8 py-3 ${
-                  theme === "dark"
-                    ? "bg-gray-800 hover:bg-gray-700"
-                    : "bg-gray-200 hover:bg-gray-300"
-                } ${
-                  theme === "dark" ? "text-white" : "text-gray-800"
-                } rounded-lg transition-colors duration-300 font-medium flex items-center justify-center shadow-md hover:shadow-lg`}
-              >
-                View Portfolio
-              </a>
+              <div className="flex items-center gap-4 px-6">
+                {profile.github_url && (
+                  <a href={profile.github_url} target="_blank" rel="noreferrer" className="text-slate-500 hover:text-slate-900 dark:text-gray-400 dark:hover:text-white transition-colors">
+                    <IconBrandGithub size={28} />
+                  </a>
+                )}
+                {profile.linkedin_url && (
+                  <a href={profile.linkedin_url} target="_blank" rel="noreferrer" className="text-slate-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors">
+                    <IconBrandLinkedin size={28} />
+                  </a>
+                )}
+                {profile.instagram_url && (
+                  <a href={profile.instagram_url} target="_blank" rel="noreferrer" className="text-slate-500 hover:text-pink-600 dark:text-gray-400 dark:hover:text-pink-400 transition-colors">
+                    <IconBrandInstagram size={28} />
+                  </a>
+                )}
+              </div>
             </div>
           </div>
+
+          {/* Image/Avatar 3D Effect */}
+          <div className="flex-1 flex justify-center lg:justify-end perspective-[1500px]">
+            <div className="relative w-80 h-80 lg:w-96 lg:h-96 group transform transition-all duration-500 hover:rotate-0 rotate-y-[-12deg] rotate-x-[10deg] hover:scale-105 preserve-3d">
+              
+              {/* Back Layer (Shadow/Depth) */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-cyan-600 to-blue-600 rounded-[2rem] transform translate-z-[-20px] translate-y-4 translate-x-4 opacity-70 blur-md transition-all duration-500 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:blur-xl"></div>
+              
+              {/* Main Image Card */}
+              <div className="relative w-full h-full rounded-[2rem] overflow-hidden border-4 border-white/80 dark:border-white/10 shadow-2xl bg-white dark:bg-gray-800 backdrop-blur-sm">
+                 <img 
+                    src={profile.avatar_url || "/images/ahmad.jpg"} 
+                    alt={profile.full_name} 
+                    className="w-full h-full object-cover transform scale-110 group-hover:scale-100 transition-transform duration-700"
+                 />
+                 {/* Glass Glare Effect */}
+                 <div className="absolute inset-0 bg-gradient-to-tr from-white/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              </div>
+              
+              {/* Floating Tech Stack Badge */}
+              <div className="absolute -bottom-8 -left-8 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white/50 dark:border-gray-700 transform translate-z-[40px] animate-float">
+                <div className="flex items-center gap-4">
+                  <div className="flex -space-x-3">
+                    {topTech.length > 0 ? (
+                      topTech.map((tech, idx) => (
+                        <div key={idx} className="relative w-10 h-10 rounded-full bg-white dark:bg-gray-700 border-2 border-white dark:border-gray-800 flex items-center justify-center overflow-hidden shadow-sm">
+                          {tech.image_url ? (
+                            <img src={tech.image_url} alt={tech.name} className="w-full h-full object-cover" />
+                          ) : (
+                            <span className="text-[10px] font-bold text-gray-500">{tech.name.slice(0,2)}</span>
+                          )}
+                        </div>
+                      ))
+                    ) : (
+                      // Fallback if no tech stack data
+                      [1,2,3].map(i => (
+                        <div key={i} className="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-white dark:border-gray-800 flex items-center justify-center">
+                          <IconCode size={16} className="text-gray-400" />
+                        </div>
+                      ))
+                    )}
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-gray-900 dark:text-white uppercase tracking-wider">Top Skills</div>
+                    <span className="text-[10px] text-gray-500 dark:text-gray-400 font-medium">
+                      {topTech.length > 0 ? "Mastered" : "Loading..."}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
-
-        <div
-          data-aos="fade-up"
-          data-aos-duration="1500"
-          data-aos-delay="300"
-          className="mt-24 mb-16 mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-6 px-4"
-        >
-          <div className="bg-blue-200 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl p-6 border border-blue-600 dark:border-gray-700 shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-500/30 transition-all duration-300">
-            <div className="flex items-center mb-4">
-              <div className="p-3 bg-indigo-600/20 rounded-lg mr-4">
-                <IconDeviceDesktop size="28" className="text-blue-800 dark:text-indigo-400" />
-              </div>
-              <h3 className="text-xl font-semibold text-blue-900 dark:text-white">
-                Frontend Expert
-              </h3>
-            </div>
-            <p className="text-blue-800 dark:text-gray-300">
-              Specialized in building responsive, performant UIs with React.js
-              and Vue.js, focusing on component architecture and state
-              management.
-            </p>
-          </div>
-
-          <div className="bg-blue-200 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl p-6 border border-blue-600 dark:border-gray-700 shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-500/30 transition-all duration-300">
-            <div className="flex items-center mb-4">
-              <div className="p-3 bg-indigo-600/20 rounded-lg mr-4">
-                <IconCode size="28" className="text-blue-800 dark:text-indigo-400" />
-              </div>
-              <h3 className="text-xl font-semibold text-blue-900 dark:text-white">
-                Backend Developer
-              </h3>
-            </div>
-            <p className="text-blue-800 dark:text-gray-300">
-              Expert in building robust backend systems with Laravel and
-              CodeIgniter, implementing clean architecture and RESTful API
-              design.
-            </p>
-          </div>
-
-          <div className="bg-blue-200 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl p-6 border border-blue-600 dark:border-gray-700 shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-500/30 transition-all duration-300">
-            <div className="flex items-center mb-4">
-              <div className="p-3 bg-indigo-600/20 rounded-lg mr-4">
-                <IconDatabase size="28" className="text-blue-800 dark:text-indigo-400" />
-              </div>
-              <h3 className="text-xl font-semibold text-blue-900 dark:text-white">
-                Database Architect
-              </h3>
-            </div>
-            <p className="text-blue-800 dark:text-gray-300">
-              Skilled in database design, optimization, and management using
-              MySQL and PostgreSQL for high-performance applications.
-            </p>
-          </div>
-        </div>
-      </section>
+      </div>
     </div>
   )
 }
+

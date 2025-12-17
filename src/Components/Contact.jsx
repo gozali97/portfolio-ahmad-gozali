@@ -1,276 +1,146 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
+import { supabase } from "../utils/supabaseClient"
 import {
   IconBrandGithub,
   IconBrandLinkedin,
+  IconBrandInstagram,
   IconMail,
   IconMapPin,
-  IconPhone,
   IconSend,
+  IconMessage2
 } from "@tabler/icons-react"
 
 export default function Contact() {
+  const [profile, setProfile] = useState({
+    email: "contact@example.com",
+    github_url: "",
+    linkedin_url: "",
+    instagram_url: "",
+    about_short: ""
+  })
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const { data } = await supabase.from('profile').select('*').single()
+      if (data) setProfile(data)
+    }
+    fetchProfile()
+  }, [])
+
   return (
-    <div
-      id="contact"
-      className="py-20 bg-white dark:bg-gray-900 transition-colors duration-300"
-    >
-      <div className="container mx-auto max-w-6xl px-6">
-        {/* Section header */}
-        <div className="text-center mb-16">
-          <h4
-            data-aos="fade-up"
-            data-aos-duration="1000"
-            className="text-indigo-600 dark:text-indigo-400 text-sm uppercase font-semibold tracking-wider mb-2"
-          >
-            Get In Touch
-          </h4>
-          <h2
-            data-aos="fade-up"
-            data-aos-duration="1000"
-            data-aos-delay="100"
-            className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6"
-          >
-            Contact Me
+    <div id="contact" className="py-24 bg-white dark:bg-gray-900 relative overflow-hidden">
+      {/* Background Decor */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-100 dark:bg-cyan-900/20 rounded-full blur-3xl opacity-50 -translate-y-1/2 translate-x-1/2"></div>
+      
+      <div className="container mx-auto max-w-6xl px-6 relative z-10">
+        <div className="text-center mb-16" data-aos="fade-up">
+          <h4 className="text-cyan-600 dark:text-cyan-400 font-bold uppercase tracking-wider mb-2">Get In Touch</h4>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
+            Let's Start a Conversation
           </h2>
-          <div
-            data-aos="fade-up"
-            data-aos-duration="1000"
-            data-aos-delay="200"
-            className="w-24 h-1 bg-indigo-500 mx-auto mb-8 rounded-full"
-          ></div>
-          <p
-            data-aos="fade-up"
-            data-aos-duration="1000"
-            data-aos-delay="300"
-            className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-10"
-          >
-            I'm currently available for freelance work and full-time full stack
-            developer positions. If you're looking for a developer with
-            extensive experience in building scalable web applications, let's
-            discuss how I can contribute to your project or team.
+          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg">
+            Have a project in mind or want to discuss modern web technologies? I'm always open to new opportunities and interesting conversations.
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-10 justify-center max-w-6xl mx-auto">
-          {/* Contact information */}
-          <div
-            data-aos="fade-right"
-            data-aos-duration="1000"
-            className="w-full lg:w-2/5"
-          >
-            <div className="bg-blue-200 dark:bg-gray-800/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl p-8 border border-gray-700 shadow-xl h-full">
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                Contact Information
-              </h3>
-
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
+          
+          {/* Contact Info */}
+          <div className="w-full lg:w-5/12 space-y-8" data-aos="fade-right">
+            <div className="bg-slate-50 dark:bg-gray-800 p-8 rounded-2xl border border-gray-100 dark:border-gray-700">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Contact Information</h3>
+              
               <div className="space-y-6">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 p-2 bg-indigo-600/20 rounded-lg mr-4">
-                    <IconMapPin size={24} className="text-indigo-400" />
+                <div className="flex items-start group">
+                  <div className="p-3 bg-white dark:bg-gray-700 rounded-lg shadow-sm mr-4 group-hover:scale-110 transition-transform">
+                    <IconMail className="text-cyan-600 dark:text-cyan-400" size={24} />
                   </div>
                   <div>
-                    <h4 className="text-gray-900 dark:text-white font-medium mb-1">
-                      Location
-                    </h4>
-                    <p className="text-gray-800 dark:text-gray-400">
+                    <h4 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Email</h4>
+                    <a href={`mailto:${profile.email}`} className="text-lg font-medium text-gray-900 dark:text-white hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+                      {profile.email}
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start group">
+                  <div className="p-3 bg-white dark:bg-gray-700 rounded-lg shadow-sm mr-4 group-hover:scale-110 transition-transform">
+                    <IconMapPin className="text-cyan-600 dark:text-cyan-400" size={24} />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Location</h4>
+                    <p className="text-lg font-medium text-gray-900 dark:text-white">
                       Yogyakarta, Indonesia
                     </p>
                   </div>
                 </div>
+              </div>
 
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 p-2 bg-indigo-600/20 rounded-lg mr-4">
-                    <IconMail size={24} className="text-indigo-400" />
-                  </div>
-                  <div>
-                    <h4 className="text-gray-900 dark:text-white font-medium mb-1">
-                      Email
-                    </h4>
-                    <a
-                      href="mailto:ahmadmulti10@gmail.com"
-                      className="text-gray-800 dark:text-gray-400 hover:text-indigo-400 transition-colors duration-300"
-                    >
-                      ahmadmulti10@gmail.com
+              <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+                <h4 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-4">Follow Me</h4>
+                <div className="flex gap-4">
+                  {profile.github_url && (
+                    <a href={profile.github_url} target="_blank" rel="noreferrer" className="p-3 bg-white dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:text-white hover:bg-slate-900 dark:hover:bg-white dark:hover:text-slate-900 rounded-xl transition-all shadow-sm hover:shadow-md">
+                      <IconBrandGithub size={22} />
                     </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 p-2 bg-indigo-600/20 rounded-lg mr-4">
-                    <IconPhone size={24} className="text-indigo-400" />
-                  </div>
-                  <div>
-                    <h4 className="text-gray-900 dark:text-white font-medium mb-1">
-                      Phone
-                    </h4>
-                    <a
-                      href="tel:+6281234567890"
-                      className="text-gray-800 dark:text-gray-400 hover:text-indigo-400 transition-colors duration-300"
-                    >
-                      +62 822 9634 6899
+                  )}
+                  {profile.linkedin_url && (
+                    <a href={profile.linkedin_url} target="_blank" rel="noreferrer" className="p-3 bg-white dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:text-white hover:bg-blue-600 dark:hover:bg-blue-500 rounded-xl transition-all shadow-sm hover:shadow-md">
+                      <IconBrandLinkedin size={22} />
                     </a>
-                  </div>
+                  )}
+                  {profile.instagram_url && (
+                    <a href={profile.instagram_url} target="_blank" rel="noreferrer" className="p-3 bg-white dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:text-white hover:bg-pink-600 dark:hover:bg-pink-500 rounded-xl transition-all shadow-sm hover:shadow-md">
+                      <IconBrandInstagram size={22} />
+                    </a>
+                  )}
                 </div>
               </div>
+            </div>
 
-              <div className="mt-10">
-                <h4 className="text-gray-900 dark:text-white font-medium mb-4">
-                  Connect With Me
-                </h4>
-                <div className="flex space-x-4">
-                  <a
-                    href="https://github.com/gozali97"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 bg-blue-800 dark:bg-gray-700 dark:bg-gray-700 hover:bg-indigo-600 text-white rounded-full transition-colors duration-300"
-                  >
-                    <IconBrandGithub size={20} />
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/in/ahmad-gozali/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 bg-blue-800 dark:bg-gray-700 dark:bg-gray-700 hover:bg-indigo-600 text-white rounded-full transition-colors duration-300"
-                  >
-                    <IconBrandLinkedin size={20} />
-                  </a>
-                </div>
+            <div className="bg-gradient-to-br from-cyan-500 to-blue-600 p-8 rounded-2xl text-white shadow-lg relative overflow-hidden">
+              <div className="relative z-10">
+                <h3 className="text-xl font-bold mb-2">Open for opportunities</h3>
+                <p className="opacity-90 mb-4">Looking for a Senior Full Stack Developer? I'm currently available for freelance projects and full-time roles.</p>
+                <a href={`mailto:${profile.email}`} className="inline-flex items-center text-sm font-bold bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors">
+                  Hire Me Now
+                </a>
               </div>
-
-              <div className="mt-10 p-6 bg-indigo-600/10 dark:bg-indigo-600/10 rounded-lg border border-indigo-500/20">
-                <h4 className="text-white dark:text-white font-medium mb-2">
-                  Available For
-                </h4>
-                <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                  <li className="flex items-center">
-                    <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2"></div>
-                    Full Stack Developer Positions
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2"></div>
-                    Freelance Project Work
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2"></div>
-                    Technical Consultation
-                  </li>
-                </ul>
-              </div>
+              <IconMessage2 className="absolute -bottom-4 -right-4 w-32 h-32 text-white opacity-10 rotate-12" />
             </div>
           </div>
 
-          {/* Contact form */}
-          <div
-            data-aos="fade-left"
-            data-aos-duration="1000"
-            className="w-full lg:w-3/5"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Contact Form */}
-              <div className="md:col-span-3 bg-blue-50 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl p-6 border border-blue-200 dark:border-gray-700 shadow-md">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
-                  Send Me a Message
-                </h3>
-
-                <form className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label
-                        htmlFor="name"
-                        className="block mb-2 text-sm font-medium text-gray-800 dark:text-gray-300"
-                      >
-                        Your Name
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        className="w-full px-4 py-3 bg-gray-100 dark:bg-gray-700 border border-gray-600 dark:border-gray-600 rounded-lg text-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all duration-300"
-                        placeholder="John Doe"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="email"
-                        className="block mb-2 text-sm font-medium text-gray-800 dark:text-gray-300"
-                      >
-                        Your Email
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        className="w-full px-4 py-3 bg-gray-100 dark:bg-gray-700 border border-gray-600 dark:border-gray-600 rounded-lg text-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all duration-300"
-                        placeholder="john@example.com"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="subject"
-                      className="block mb-2 text-sm font-medium text-gray-800 dark:text-gray-300"
-                    >
-                      Subject
-                    </label>
-                    <input
-                      type="text"
-                      id="subject"
-                      className="w-full px-4 py-3 bg-gray-100 dark:bg-gray-700 border border-gray-600 dark:border-gray-600 rounded-lg text-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all duration-300"
-                      placeholder="Project Inquiry / Job Opportunity"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="message"
-                      className="block mb-2 text-sm font-medium text-gray-800 dark:text-gray-300"
-                    >
-                      Your Message
-                    </label>
-                    <textarea
-                      id="message"
-                      rows="6"
-                      className="w-full px-4 py-3 bg-gray-100 dark:bg-gray-700 border border-gray-600 dark:border-gray-600 rounded-lg text-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all duration-300"
-                      placeholder="Describe your project or job opportunity in detail..."
-                      required
-                    ></textarea>
-                  </div>
-
-                  <div className="flex items-center">
-                    <input
-                      id="terms"
-                      type="checkbox"
-                      className="w-5 h-5 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:ring-indigo-500 text-indigo-600 rounded"
-                      required
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="ml-2 text-sm text-gray-400 dark:text-gray-400"
-                    >
-                      I agree to the{" "}
-                      <a
-                        href="/privacy-policy"
-                        className="text-indigo-400 dark:text-indigo-400 hover:underline"
-                      >
-                        privacy policy
-                      </a>{" "}
-                      and consent to being contacted regarding my inquiry.
-                    </label>
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="flex items-center justify-center w-full px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors duration-300 font-medium shadow-md hover:shadow-lg"
-                  >
-                    <IconSend size={18} className="mr-2" />
-                    Send Message
-                  </button>
-                </form>
+          {/* Contact Form */}
+          <div className="w-full lg:w-7/12" data-aos="fade-left">
+            <form className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Name</label>
+                  <input type="text" id="name" className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 outline-none transition-all dark:text-white" placeholder="John Doe" required />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Email</label>
+                  <input type="email" id="email" className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 outline-none transition-all dark:text-white" placeholder="john@example.com" required />
+                </div>
               </div>
-            </div>
+              
+              <div className="mb-6">
+                <label htmlFor="subject" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Subject</label>
+                <input type="text" id="subject" className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 outline-none transition-all dark:text-white" placeholder="Project Inquiry" required />
+              </div>
+
+              <div className="mb-8">
+                <label htmlFor="message" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Message</label>
+                <textarea id="message" rows="5" className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 outline-none transition-all dark:text-white resize-none" placeholder="Tell me about your project..." required></textarea>
+              </div>
+
+              <button type="submit" className="w-full py-4 px-6 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold rounded-xl shadow-lg shadow-cyan-500/20 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
+                <IconSend size={20} />
+                Send Message
+              </button>
+            </form>
           </div>
+
         </div>
       </div>
     </div>

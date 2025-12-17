@@ -11,7 +11,7 @@ const ThemeToggle = () => {
         onClick={() => changeThemeMode('light')}
         className={`p-1.5 rounded-md ${
           themeMode === 'light'
-            ? 'bg-indigo-500 text-white'
+            ? 'bg-cyan-500 text-white'
             : 'text-gray-400 dark:hover:text-white hover:text-gray-700 hover:bg-gray-300 dark:hover:bg-gray-700'
         }`}
         aria-label="Light mode"
@@ -22,7 +22,7 @@ const ThemeToggle = () => {
         onClick={() => changeThemeMode('dark')}
         className={`p-1.5 rounded-md ${
           themeMode === 'dark'
-            ? 'bg-indigo-500 text-white'
+            ? 'bg-cyan-500 text-white'
             : 'text-gray-400 dark:hover:text-white hover:text-gray-700 hover:bg-gray-300 dark:hover:bg-gray-700'
         }`}
         aria-label="Dark mode"
@@ -33,7 +33,7 @@ const ThemeToggle = () => {
         onClick={() => changeThemeMode('system')}
         className={`p-1.5 rounded-md ${
           themeMode === 'system'
-            ? 'bg-indigo-500 text-white'
+            ? 'bg-cyan-500 text-white'
             : 'text-gray-400 dark:hover:text-white hover:text-gray-700 hover:bg-gray-300 dark:hover:bg-gray-700'
         }`}
         aria-label="System preference"
