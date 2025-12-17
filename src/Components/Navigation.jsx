@@ -38,13 +38,13 @@ export default function Navigation() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full ${
           isScrolled
             ? "bg-white dark:bg-gray-900 shadow-md py-3"
             : "bg-transparent py-5"
         }`}
       >
-        <div className="container mx-auto px-6 flex justify-between items-center">
+        <div className="container mx-auto px-4 md:px-6 flex justify-between items-center max-w-full">
           {/* Logo */}
           <div className="flex items-center gap-2 group cursor-pointer">
             <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300">

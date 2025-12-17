@@ -1,33 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@400;700;900&display=swap");
 
-body {
-    /*background: url("../public/images/bg-gradient.jpg");*/
-    /*background-size: cover;*/
+@layer base {
+  html {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    scroll-behavior: smooth;
     overflow-x: hidden;
+  }
+  body {
+    @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300;
+    overflow-x: hidden;
+    width: 100%;
+  }
 }
 
-.active {
-    background: linear-gradient(45deg, #4b93f8 20%, #4453ce 70%);
-    border-radius: 50%;
-    color: #fff;
+.glass-nav {
+  @apply bg-white/70 dark:bg-gray-900/70 backdrop-blur-md border-b border-white/20 dark:border-gray-800/50 supports-[backdrop-filter]:bg-white/60;
+}
+
+.glass-card {
+  @apply bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 shadow-xl;
 }
 
 .text-gradient {
-    @apply bg-gradient-to-r text-transparent bg-clip-text from-[#ff014f] to-[#011eff] font-bold;
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-600 dark:from-cyan-400 dark:to-blue-500;
 }
 
-.bg-gradient {
-    background: linear-gradient(
-        92.23deg,
-        #0417a8 21.43%,
-        #0a7fb7 50.63%,
-        #0567ea 100%,
-        #02175e 117.04%
-    );
+.btn-primary {
+  @apply bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white shadow-lg shadow-cyan-500/20 transition-all duration-300 transform hover:-translate-y-1;
 }
-.section {
-    @apply py-8 lg:py-24 lg:h-screen flex items-center;
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-gray-700 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400 dark:bg-gray-600;
 }

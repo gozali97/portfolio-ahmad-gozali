@@ -31,20 +31,20 @@ export default function Portofolio() {
       <div className="container mx-auto px-6">
         
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-          <div data-aos="fade-right">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
+          <div data-aos="fade-right" className="text-left w-full md:w-auto">
             <h4 className="text-cyan-600 dark:text-cyan-400 font-bold uppercase tracking-wider mb-2">Portfolio</h4>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
               Selected Works
             </h2>
           </div>
 
-          <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0" data-aos="fade-left">
+          <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0 w-full md:w-auto scrollbar-hide" data-aos="fade-left">
             {['all', 'fullstack', 'frontend', 'backend'].map(cat => (
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
-                className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 capitalize whitespace-nowrap ${
+                className={`px-4 py-2 md:px-6 rounded-full text-xs md:text-sm font-medium transition-all duration-300 capitalize whitespace-nowrap flex-shrink-0 ${
                   filter === cat 
                     ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-lg" 
                     : "bg-white text-gray-600 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
