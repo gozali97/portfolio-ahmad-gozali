@@ -14,10 +14,13 @@ export default function Navigation() {
       setIsScrolled(window.scrollY > 20)
     }
     window.addEventListener("scroll", handleScroll)
-    
+
     // Fetch Resume URL
     const fetchProfile = async () => {
-      const { data } = await supabase.from('profile').select('resume_url').single()
+      const { data } = await supabase
+        .from("profile")
+        .select("resume_url")
+        .single()
       if (data?.resume_url) setResumeUrl(data.resume_url)
     }
     fetchProfile()
@@ -36,17 +39,17 @@ export default function Navigation() {
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? "bg-white dark:bg-gray-900 shadow-md py-3" : "bg-transparent py-5"
+          isScrolled
+            ? "bg-white dark:bg-gray-900 shadow-md py-3"
+            : "bg-transparent py-5"
         }`}
       >
         <div className="container mx-auto px-6 flex justify-between items-center">
           {/* Logo */}
           <div className="flex items-center gap-2 group cursor-pointer">
-            <div className="p-2 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg text-white transform group-hover:rotate-12 transition-transform duration-300">
-              <IconCode size={24} />
-            </div>
             <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300">
-              Ahmad<span className="text-cyan-600 dark:text-cyan-400">.Dev</span>
+              Ahmad
+              <span className="text-cyan-600 dark:text-cyan-400">.Gozali</span>
             </span>
           </div>
 
@@ -66,11 +69,11 @@ export default function Navigation() {
                 {item.label}
               </Link>
             ))}
-            
+
             <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-2"></div>
-            
+
             <ThemeToggle />
-            
+
             {resumeUrl && (
               <a
                 href={resumeUrl}
@@ -132,4 +135,3 @@ export default function Navigation() {
     </>
   )
 }
-
