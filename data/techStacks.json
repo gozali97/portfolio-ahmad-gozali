@@ -20,7 +20,7 @@
   {
     "id": 3,
     "name": "Go",
-    "image_url": "/images/go.webp",
+    "image_url": "/images/go.png",
     "category": "language",
     "proficiency": 70,
     "years": 2,
@@ -43,6 +43,15 @@
     "proficiency": 80,
     "years": 3,
     "desc": "Server-side rendering, static site generation, and API routes"
+  },
+  {
+    "id": 10,
+    "name": "Nest JS",
+    "image_url": "/images/nest-js.png",
+    "category": "framework",
+    "proficiency": 70,
+    "years": 2,
+    "desc": "A progressive Node.js framework for building efficient, scalable server-side applications with TypeScript"
   },
   {
     "id": 6,

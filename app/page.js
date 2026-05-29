@@ -14,17 +14,14 @@ export default function Home() {
 
   return (
     <div className="relative min-h-screen transition-colors duration-500">
-      <div className="blob-bg" />
-      <div className="noise-overlay" />
+      <div className="column-guides" aria-hidden="true" />
+      <div className="grain" aria-hidden="true" />
 
       <div className="relative z-10">
         <Navigation resumeUrl={profile.resume_url} />
         <Banner profile={profile} topTech={topTech} />
-        <div className="section-divider max-w-6xl mx-auto" />
         <Profile profile={profile} techStacksByCategory={techStacksByCategory} />
-        <div className="section-divider max-w-6xl mx-auto" />
         <Portfolio projects={projects} />
-        <div className="section-divider max-w-6xl mx-auto" />
         <Contact profile={profile} />
         <Footer profile={profile} />
       </div>

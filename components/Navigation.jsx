@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, ArrowUpRight } from 'lucide-react'
 
 export default function Navigation({ resumeUrl }) {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -14,59 +14,83 @@ export default function Navigation({ resumeUrl }) {
   }, [])
 
   const navItems = [
-    { href: '#banner', label: 'Home' },
-    { href: '#profile', label: 'About' },
-    { href: '#portfolio', label: 'Work' },
-    { href: '#contact', label: 'Contact' },
+    { href: '#banner', label: 'Index', no: '01' },
+    { href: '#profile', label: 'About', no: '02' },
+    { href: '#portfolio', label: 'Work', no: '03' },
+    { href: '#contact', label: 'Contact', no: '04' },
   ]
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 w-full ${
-        isScrolled
-          ? 'dark:bg-[#050505]/80 bg-white/80 backdrop-blur-xl border-b dark:border-white/5 border-black/5 py-3'
-          : 'bg-transparent py-5'
-      }`}>
-        <div className="container mx-auto px-6 flex justify-between items-center max-w-6xl">
-          <a href="#banner" className="text-xl font-bold tracking-tight">
-            Ahmad<span className="text-gradient-cyan">.dev</span>
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 w-full ${
+          isScrolled ? 'bg-paper/85 backdrop-blur-md rule-b' : 'bg-transparent'
+        }`}
+      >
+        <div className="mx-auto max-w-editorial px-6 flex justify-between items-center h-16">
+          <a href="#banner" className="flex items-center gap-2 group">
+            <span className="display text-xl tracking-tight">Ahmad Gozali</span>
+            <span className="mono-label text-accent">©25</span>
           </a>
 
           {/* Desktop */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-9">
             {navItems.map((item) => (
-              <a key={item.href} href={item.href}
-                className="text-sm font-medium text-white/50 hover:text-white transition-colors duration-300 relative group">
-                {item.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-px bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300" />
+              <a
+                key={item.href}
+                href={item.href}
+                className="group flex items-baseline gap-1.5 text-sm font-medium text-ink/70 hover:text-ink transition-colors"
+              >
+                <span className="mono-label text-ink/30 group-hover:text-accent transition-colors">{item.no}</span>
+                <span className="link-sweep">{item.label}</span>
               </a>
             ))}
             {resumeUrl && (
-              <a href={resumeUrl} target="_blank" rel="noreferrer"
-                className="px-5 py-2 rounded-full text-sm font-semibold border border-white/10 text-white/80 hover:border-cyan-500/50 hover:text-white hover:shadow-[0_0_20px_rgba(6,182,212,0.15)] transition-all duration-300">
-                Resume
+              <a href={resumeUrl} target="_blank" rel="noreferrer" className="btn-ink !py-2 !px-4 text-sm">
+                Resume <ArrowUpRight size={15} />
               </a>
             )}
           </div>
 
-          {/* Mobile */}
-          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-white/60 hover:text-white transition-colors">
+          {/* Mobile toggle */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 text-ink"
+            aria-label="Toggle menu"
+          >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </nav>
 
-      {/* Mobile Overlay */}
-      <div className={`fixed inset-0 z-40 dark:bg-[#050505]/98 bg-white/98 backdrop-blur-xl flex flex-col justify-center items-center gap-8 transition-all duration-500 md:hidden ${
-        mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-      }`}>
+      {/* Mobile overlay */}
+      <div
+        className={`fixed inset-0 z-40 bg-paper flex flex-col justify-center px-8 gap-2 transition-all duration-500 md:hidden ${
+          mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+      >
         {navItems.map((item) => (
-          <a key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)}
-            className="text-3xl font-bold text-white/70 hover:text-white transition-colors">
-            {item.label}
+          <a
+            key={item.href}
+            href={item.href}
+            onClick={() => setMobileMenuOpen(false)}
+            className="flex items-baseline gap-4 py-3 rule-b"
+          >
+            <span className="mono-label text-accent">{item.no}</span>
+            <span className="display text-5xl">{item.label}</span>
           </a>
         ))}
+        {resumeUrl && (
+          <a
+            href={resumeUrl}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => setMobileMenuOpen(false)}
+            className="mono-label mt-8 flex items-center gap-2 text-ink/60"
+          >
+            Download Resume <ArrowUpRight size={14} />
+          </a>
+        )}
       </div>
     </>
   )

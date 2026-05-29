@@ -6,77 +6,93 @@ export default function Profile({ profile, techStacksByCategory }) {
   const ref = useScrollAnimation()
 
   const stats = [
-    { value: '5+', label: 'Years Experience', color: 'from-cyan-500 to-blue-500' },
-    { value: '20+', label: 'Projects Delivered', color: 'from-blue-500 to-purple-500' },
-    { value: '100%', label: 'Client Satisfaction', color: 'from-purple-500 to-pink-500' },
-    { value: '24/7', label: 'Support Available', color: 'from-pink-500 to-cyan-500' },
+    { value: '5+', label: 'Years building for the web' },
+    { value: '20+', label: 'Projects shipped to production' },
+    { value: '8', label: 'Live products maintained' },
+    { value: '∞', label: 'Cups of coffee' },
   ]
 
-  const allTech = [
-    ...(techStacksByCategory.language || []),
-    ...(techStacksByCategory.framework || []),
-    ...(techStacksByCategory.database || []),
-    ...(techStacksByCategory.tool || []),
+  const categoryOrder = [
+    { key: 'language', label: 'Languages' },
+    { key: 'framework', label: 'Frameworks' },
+    { key: 'database', label: 'Databases' },
+    { key: 'tool', label: 'Tools' },
   ]
 
   return (
-    <section id="profile" className="py-24" ref={ref}>
-      <div className="container mx-auto max-w-6xl px-6">
+    <section id="profile" ref={ref} className="py-24 md:py-36">
+      <div className="mx-auto max-w-editorial px-6">
 
-        {/* Header */}
-        <div className="text-center mb-16 scroll-hidden">
-          <span className="text-xs font-bold uppercase tracking-widest text-cyan-400 mb-3 block">About Me</span>
-          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-6">
-            Crafting Code with <br className="hidden sm:block" />
-            <span className="text-gradient">Passion & Precision</span>
-          </h2>
+        {/* Section header */}
+        <div className="reveal flex items-baseline justify-between rule-b pb-4 mb-16">
+          <span className="mono-label text-accent">(02) — About</span>
+          <span className="mono-label text-ink/40">Profile</span>
         </div>
 
-        {/* Bio + Stats Bento Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 mb-20">
-          {/* Bio - spans 3 columns */}
-          <div className="lg:col-span-3 glass rounded-2xl p-8 scroll-hidden" data-delay="1">
-            <p className="text-white/50 leading-relaxed text-lg whitespace-pre-line">
+        {/* Statement */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-24">
+          <div className="lg:col-span-8">
+            <h2 className="reveal display text-4xl md:text-6xl lg:text-7xl mb-10" data-delay="1">
+              I design and build <span className="text-accent italic" style={{ fontStyle: 'italic' }}>reliable</span> software, end to end.
+            </h2>
+            <p className="reveal text-lg md:text-xl leading-relaxed text-ink/70 max-w-2xl whitespace-pre-line" data-delay="2">
               {profile.about_long}
             </p>
           </div>
 
-          {/* Stats - 2x2 grid spanning 2 columns */}
-          <div className="lg:col-span-2 grid grid-cols-2 gap-4">
-            {stats.map((stat, idx) => (
-              <div key={stat.label} className="glass glass-hover rounded-2xl p-6 flex flex-col justify-center text-center scroll-hidden" data-delay={idx + 2}>
-                <div className={`text-3xl md:text-4xl font-extrabold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}>
-                  {stat.value}
-                </div>
-                <div className="text-xs text-white/30 mt-2 font-medium uppercase tracking-wider">{stat.label}</div>
-              </div>
-            ))}
+          {/* Stats — numbered list */}
+          <div className="lg:col-span-4">
+            <ul>
+              {stats.map((stat, idx) => (
+                <li
+                  key={stat.label}
+                  className="reveal flex items-baseline gap-4 py-5 rule-b first:rule-t"
+                  data-delay={idx + 1}
+                >
+                  <span className="mono-label text-ink/30 w-8">0{idx + 1}</span>
+                  <div className="flex-1">
+                    <div className="display text-4xl md:text-5xl">{stat.value}</div>
+                    <div className="text-sm text-ink/50 mt-1">{stat.label}</div>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
-        {/* Tech Stack - Logo Cards */}
-        <div className="scroll-hidden">
-          <div className="text-center mb-10">
-            <h3 className="text-2xl md:text-3xl font-bold mb-3">Tech Stack</h3>
-            <p className="text-white/30 text-sm">Technologies I work with daily</p>
-          </div>
+        {/* Tech stack — by category */}
+        <div className="reveal flex items-baseline justify-between rule-b pb-4 mb-12">
+          <h3 className="display text-2xl md:text-3xl">Toolkit</h3>
+          <span className="mono-label text-ink/40">What I work with</span>
+        </div>
 
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-9 gap-3">
-            {allTech.map((tech, idx) => (
-              <div key={tech.id}
-                className="glass glass-hover rounded-2xl p-4 flex flex-col items-center gap-3 group cursor-default scroll-hidden"
-                data-delay={Math.min(idx + 1, 6)}
-              >
-                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center overflow-hidden group-hover:scale-110 transition-transform duration-300">
-                  {tech.image_url
-                    ? <img src={tech.image_url} alt={tech.name} className="w-8 h-8 object-contain" />
-                    : <span className="text-sm font-bold text-white/40">{tech.name.slice(0, 2)}</span>
-                  }
+        <div className="space-y-12">
+          {categoryOrder.map(({ key, label }) => {
+            const items = techStacksByCategory[key] || []
+            if (!items.length) return null
+            return (
+              <div key={key} className="reveal grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                <div className="md:col-span-3">
+                  <span className="mono-label text-ink/40">{label}</span>
                 </div>
-                <span className="text-xs font-medium text-white/40 group-hover:text-white/70 transition-colors text-center leading-tight">{tech.name}</span>
+                <ul className="md:col-span-9 grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-6">
+                  {items.map((tech) => (
+                    <li key={tech.id} className="group flex items-center gap-3">
+                      <span className="w-9 h-9 grid place-items-center shrink-0">
+                        {tech.image_url
+                          ? <img src={tech.image_url} alt={tech.name} className="w-7 h-7 object-contain grayscale group-hover:grayscale-0 transition-all duration-500" />
+                          : <span className="mono-label text-ink/40">{tech.name.slice(0, 2)}</span>}
+                      </span>
+                      <div className="min-w-0">
+                        <div className="text-sm font-semibold truncate group-hover:text-accent transition-colors">{tech.name}</div>
+                        <div className="mono-label text-ink/30">{tech.proficiency}% · {tech.years}y</div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            ))}
-          </div>
+            )
+          })}
         </div>
       </div>
     </section>

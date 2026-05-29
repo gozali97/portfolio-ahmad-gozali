@@ -3,9 +3,9 @@
 import { useEffect, useRef } from 'react'
 
 /**
- * Hook that triggers CSS class changes when elements enter viewport.
+ * Reveals elements as they enter the viewport.
  * Usage: const ref = useScrollAnimation()
- * Then: <div ref={ref} className="scroll-hidden">
+ * Then add className="reveal" (optionally data-delay="1..6") to children.
  */
 export function useScrollAnimation() {
   const ref = useRef(null)
@@ -18,19 +18,16 @@ export function useScrollAnimation() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('scroll-visible', 'scroll-visible-x')
+            entry.target.classList.add('reveal-in')
             observer.unobserve(entry.target)
           }
         })
       },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+      { threshold: 0.12, rootMargin: '0px 0px -60px 0px' }
     )
 
-    // Observe the element itself and all children with scroll-hidden
-    observer.observe(el)
-    el.querySelectorAll('.scroll-hidden, .scroll-hidden-left, .scroll-hidden-right').forEach((child) => {
-      observer.observe(child)
-    })
+    if (el.classList.contains('reveal')) observer.observe(el)
+    el.querySelectorAll('.reveal').forEach((child) => observer.observe(child))
 
     return () => observer.disconnect()
   }, [])

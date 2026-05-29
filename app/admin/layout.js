@@ -1,9 +1,10 @@
 'use client'
 
-import { UserButton } from '@clerk/nextjs'
+import { UserButton, useClerk } from '@clerk/nextjs'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { LayoutDashboard, FolderKanban, Cpu, User, ArrowLeft } from 'lucide-react'
+import { LayoutDashboard, FolderKanban, Cpu, User, ArrowLeft, LogOut } from 'lucide-react'
+import SessionTimeout from '@/components/SessionTimeout'
 
 const sidebarItems = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -14,6 +15,7 @@ const sidebarItems = [
 
 export default function AdminLayout({ children }) {
   const pathname = usePathname()
+  const { signOut } = useClerk()
 
   // Don't show layout for sign-in page
   if (pathname.startsWith('/admin/sign-in')) {
@@ -57,9 +59,17 @@ export default function AdminLayout({ children }) {
           >
             <ArrowLeft size={16} /> Back to Site
           </Link>
-          <div className="flex items-center gap-3 px-4">
+
+          <button
+            onClick={() => signOut({ redirectUrl: '/admin/sign-in' })}
+            className="w-full flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/40 transition-colors"
+          >
+            <LogOut size={16} /> Sign Out
+          </button>
+
+          <div className="flex items-center gap-3 px-4 pt-1">
             <UserButton afterSignOutUrl="/" />
-            <span className="text-sm text-gray-500 dark:text-gray-400">Account</span>
+            <span className="text-xs text-gray-400 dark:text-gray-500">Auto-logout in 10 min idle</span>
           </div>
         </div>
       </aside>
@@ -68,6 +78,9 @@ export default function AdminLayout({ children }) {
       <main className="flex-1 ml-64 p-8">
         {children}
       </main>
+
+      {/* Idle session timeout (10 minutes) */}
+      <SessionTimeout />
     </div>
   )
 }

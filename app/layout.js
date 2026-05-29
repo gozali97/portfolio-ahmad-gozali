@@ -1,4 +1,4 @@
-import { Plus_Jakarta_Sans } from 'next/font/google'
+import { Plus_Jakarta_Sans, Bricolage_Grotesque, JetBrains_Mono } from 'next/font/google'
 import { ClerkProvider } from '@clerk/nextjs'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import ThemeToggle from '@/components/ThemeToggle'
@@ -7,6 +7,18 @@ import './globals.css'
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
   variable: '--font-plus-jakarta',
+  display: 'swap',
+})
+
+const bricolage = Bricolage_Grotesque({
+  subsets: ['latin'],
+  variable: '--font-display',
+  display: 'swap',
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
   display: 'swap',
 })
 
@@ -25,8 +37,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
-      <html lang="en" className="dark" suppressHydrationWarning>
-        <body className={`${plusJakartaSans.variable} font-sans antialiased`}>
+      <html lang="en" className="light" suppressHydrationWarning>
+        <body className={`${plusJakartaSans.variable} ${bricolage.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
           <ThemeProvider>
             {children}
             <ThemeToggle />

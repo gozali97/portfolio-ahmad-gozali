@@ -2,7 +2,12 @@
   "id": 1,
   "full_name": "Ahmad Gozali",
   "headline": "Building Digital Experiences that Matter",
-  "titles": ["Full Stack Developer", "React Specialist", "Problem Solver"],
+  "titles": [
+    "Full Stack Developer",
+    "Laravel Engineer",
+    "React & Vue Developer",
+    "Problem Solver"
+  ],
   "about_short": "A full-stack developer with extensive experience in building scalable web applications. I specialize in Laravel, React, and Vue.js development with a proven track record of delivering enterprise-grade solutions for diverse business needs.",
   "about_long": "Full Stack developer with 5+ years of experience architecting and implementing enterprise-grade web applications. Graduated from Yogyakarta University of Technology with a degree in Informatics Engineering.\n\nProven track record of leading development teams and delivering high-quality solutions that meet business objectives and exceed client expectations.",
   "avatar_url": "/images/ahmad.jpg",
