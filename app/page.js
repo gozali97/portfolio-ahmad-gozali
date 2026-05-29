@@ -5,6 +5,7 @@ import Profile from '@/components/Profile'
 import Portfolio from '@/components/Portfolio'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
+import StructuredData from '@/components/StructuredData'
 
 export default function Home() {
   const profile = getProfile()
@@ -14,6 +15,7 @@ export default function Home() {
 
   return (
     <div className="relative min-h-screen transition-colors duration-500">
+      <StructuredData profile={profile} projects={projects} />
       <div className="column-guides" aria-hidden="true" />
       <div className="grain" aria-hidden="true" />
 

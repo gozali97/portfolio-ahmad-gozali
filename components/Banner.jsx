@@ -26,11 +26,15 @@ export default function Banner({ profile, topTech }) {
             (01) — Full Stack Developer
           </span>
 
-          <h1 className="display text-[15vw] leading-[0.82] md:text-[11rem] lg:text-[13rem]">
+          <h1
+            className="display text-[15vw] leading-[0.82] md:text-[11rem] lg:text-[13rem]"
+            aria-label={`${profile.full_name} — Full Stack Developer`}
+          >
             <span className="reveal block" data-delay="1">Ahmad</span>
             <span className="reveal block text-accent italic" data-delay="2" style={{ fontStyle: 'italic' }}>
               Gozali
             </span>
+            <span className="sr-only"> — Full Stack Developer & Laravel Engineer based in Yogyakarta, Indonesia</span>
           </h1>
         </div>
 
@@ -96,12 +100,13 @@ export default function Banner({ profile, topTech }) {
                     <span className="mono-label !text-[0.6rem] text-white/80">No. 01</span>
                     <span className="mono-label !text-[0.6rem] text-white/80">EST. 2019</span>
                   </div>
-                  <h2
+                  <p
                     className="display text-white text-center leading-[0.8] mt-1"
                     style={{ fontSize: 'clamp(2.75rem, 6vw, 4rem)' }}
+                    aria-hidden="true"
                   >
                     GOZALI
-                  </h2>
+                  </p>
                   <div className="flex items-center gap-3 mt-1">
                     <span className="h-px flex-1 bg-white/40" />
                     <span className="mono-label !text-[0.55rem] text-white/70">The Developer Issue</span>
