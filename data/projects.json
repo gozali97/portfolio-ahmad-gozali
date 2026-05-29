@@ -1,0 +1,134 @@
+[
+  {
+    "id": 1,
+    "title": "KLC Learning Center",
+    "short_description": "E-learning platform for corporate training",
+    "full_description": "",
+    "image_url": "/images/klc.png",
+    "technologies": ["php", "laravel", "react"],
+    "category": "fullstack",
+    "demo_url": "https://klc.k24.co.id",
+    "repo_url": "https://klc.k24.co.id",
+    "is_live": true,
+    "highlights": [
+      "Implemented video streaming integration with AWS",
+      "Developed interactive course materials and quizzes"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Digitalpanel.id",
+    "short_description": "Enterprise management dashboard for digital services",
+    "full_description": "",
+    "image_url": "/images/digital-panel.png",
+    "technologies": ["php", "laravel", "react js", "next js"],
+    "category": "fullstack",
+    "demo_url": "https://digitalpanel.id/",
+    "repo_url": "https://digitalpanel.id/",
+    "is_live": true,
+    "highlights": [
+      "Built real-time data visualization with React",
+      "Implemented role-based access control system"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "BuatinSoal Quiz Generator",
+    "short_description": "AI-powered quiz and assessment generator",
+    "full_description": "",
+    "image_url": "/images/buatin-soal.png",
+    "technologies": ["react js", "next js"],
+    "category": "frontend",
+    "demo_url": "https://buatin-soal.ahmad-gozali.com/",
+    "repo_url": "https://github.com/gozali97/buatinsoal",
+    "is_live": true,
+    "highlights": [
+      "Integrated OpenAI API for intelligent question generation",
+      "Built adaptive difficulty system based on user performance"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Digimoon.id",
+    "short_description": "Digital marketing and web development agency platform",
+    "full_description": "",
+    "image_url": "/images/digimoon.png",
+    "technologies": ["php", "laravel", "react js", "next js"],
+    "category": "fullstack",
+    "demo_url": "https://digimoon.id/",
+    "repo_url": "https://digimoon.id/",
+    "is_live": true,
+    "highlights": [
+      "Implemented responsive design with modern UI/UX principles",
+      "Built custom CMS for portfolio management"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Genilogi.id",
+    "short_description": "Genilogi Assessment Platform, Psychology assessment and testing platform",
+    "full_description": "",
+    "image_url": "/images/genilogi.png",
+    "technologies": ["php", "laravel", "react js"],
+    "category": "fullstack",
+    "demo_url": "https://genilogi.id/",
+    "repo_url": "https://genilogi.id/",
+    "is_live": true,
+    "highlights": [
+      "Implemented complex assessment algorithms",
+      "Built detailed result visualization dashboards"
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Salespage",
+    "short_description": "The SalesPage website is a modern landing page designed to help sales professionals increase their sales through a professional digital profile.",
+    "full_description": "",
+    "image_url": "/images/profile.png",
+    "technologies": ["react js", "next js"],
+    "category": "fullstack",
+    "demo_url": "https://salespages-agozalii.vercel.app/",
+    "repo_url": "https://github.com/gozali97/salespage",
+    "is_live": true,
+    "highlights": [
+      "Display profile photo, bio, and professional contact information to build customer trust.",
+      "Upload product or property photos, pricing, discounts, and specifications in a modern gallery format.",
+      "Direct call-to-action buttons that instantly connect customers to the salesperson's personal WhatsApp."
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Booking Court & POS",
+    "short_description": "The Agape Court website is a modern landing page for a professional tennis facility that focuses on helping players develop their skills through high-quality courts, expert training, and advanced facilities.",
+    "full_description": "",
+    "image_url": "/images/bookstore.png",
+    "technologies": ["php", "laravel", "react js"],
+    "category": "fullstack",
+    "demo_url": "https://agape-court.id/",
+    "repo_url": "https://agape-court.id/",
+    "is_live": true,
+    "highlights": [
+      "Header & Navigation",
+      "Hero Section",
+      "Book a court now"
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Tryout Online",
+    "short_description": "The COMATH Tryout Online website is an educational platform designed to help Indonesian students prepare for UTBK and SNBT university entrance exams through structured online learning and practice.",
+    "full_description": "",
+    "image_url": "/images/blog-react.png",
+    "technologies": ["php", "laravel", "react js"],
+    "category": "fullstack",
+    "demo_url": "https://comathedu.id/",
+    "repo_url": "https://comathedu.id/",
+    "is_live": true,
+    "highlights": [
+      "Comprehensive UTBK & SNBT tryouts",
+      "In-depth answer explanations",
+      "High-quality learning videos",
+      "Personalized PTN (public university) recommendations"
+    ]
+  }
+]

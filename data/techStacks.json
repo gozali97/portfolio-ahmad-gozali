@@ -1,0 +1,83 @@
+[
+  {
+    "id": 1,
+    "name": "PHP",
+    "image_url": "/images/php.svg",
+    "category": "language",
+    "proficiency": 90,
+    "years": 4,
+    "desc": "Object-oriented programming, APIs, and enterprise applications"
+  },
+  {
+    "id": 2,
+    "name": "JavaScript",
+    "image_url": "/images/javascript.png",
+    "category": "language",
+    "proficiency": 80,
+    "years": 3,
+    "desc": "TypeScript, async programming, and design patterns"
+  },
+  {
+    "id": 3,
+    "name": "Go",
+    "image_url": "/images/go.webp",
+    "category": "language",
+    "proficiency": 70,
+    "years": 2,
+    "desc": "Open-source programming language developed by Google"
+  },
+  {
+    "id": 4,
+    "name": "Laravel",
+    "image_url": "/images/laravel.png",
+    "category": "framework",
+    "proficiency": 95,
+    "years": 4,
+    "desc": "Laravel is a popular open-source PHP framework designed to make web application development elegant, expressive, and efficient"
+  },
+  {
+    "id": 5,
+    "name": "Next JS",
+    "image_url": "/images/nextjs.svg",
+    "category": "framework",
+    "proficiency": 80,
+    "years": 3,
+    "desc": "Server-side rendering, static site generation, and API routes"
+  },
+  {
+    "id": 6,
+    "name": "Vue JS",
+    "image_url": "/images/vue-js.png",
+    "category": "framework",
+    "proficiency": 80,
+    "years": 3,
+    "desc": "Vue.js is an open-source progressive JavaScript framework used for building user interfaces and single-page applications (SPAs)"
+  },
+  {
+    "id": 7,
+    "name": "Yii Framework",
+    "image_url": "/images/yii.png",
+    "category": "framework",
+    "proficiency": 80,
+    "years": 1,
+    "desc": "Yii Framework is a high-performance, open-source PHP framework designed for building modern web applications quickly and efficiently"
+  },
+  {
+    "id": 8,
+    "name": "MySQL",
+    "image_url": "/images/mysql.png",
+    "category": "database",
+    "proficiency": 100,
+    "years": 1,
+    "desc": "MySQL is an open-source relational database management system (RDBMS) that uses Structured Query Language (SQL) to store, manage, and retrieve data."
+  },
+  {
+    "id": 9,
+    "name": "PostgreSQL",
+    "image_url": "/images/pgsql.svg",
+    "category": "database",
+    "proficiency": 90,
+    "years": 1,
+    "desc": "PostgreSQL is a powerful, open-source object-relational database management system (ORDBMS) known for its reliability, extensibility, and standards compliance"
+  }
+]
