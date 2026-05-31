@@ -17,7 +17,8 @@ export default function Navigation({ resumeUrl }) {
     { href: '#banner', label: 'Index', no: '01' },
     { href: '#profile', label: 'About', no: '02' },
     { href: '#portfolio', label: 'Work', no: '03' },
-    { href: '#contact', label: 'Contact', no: '04' },
+    { href: '#activity', label: 'Activity', no: '04' },
+    { href: '#contact', label: 'Contact', no: '05' },
   ]
 
   return (

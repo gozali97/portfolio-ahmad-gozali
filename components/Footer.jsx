@@ -5,6 +5,7 @@ export default function Footer({ profile }) {
     { label: 'Index', href: '#banner' },
     { label: 'About', href: '#profile' },
     { label: 'Work', href: '#portfolio' },
+    { label: 'Activity', href: '#activity' },
     { label: 'Contact', href: '#contact' },
   ]
 

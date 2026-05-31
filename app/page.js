@@ -1,17 +1,22 @@
 import { getProfile, getProjects, getTopTechStacks, getTechStacksByCategory } from '@/lib/data'
+import { getGithubUsername, getGithubContributions } from '@/lib/github'
 import Navigation from '@/components/Navigation'
 import Banner from '@/components/Banner'
 import Profile from '@/components/Profile'
 import Portfolio from '@/components/Portfolio'
+import GithubActivity from '@/components/GithubActivity'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
 import StructuredData from '@/components/StructuredData'
 
-export default function Home() {
+export default async function Home() {
   const profile = getProfile()
   const projects = getProjects()
   const topTech = getTopTechStacks(5)
   const techStacksByCategory = getTechStacksByCategory()
+
+  const githubUsername = getGithubUsername(profile)
+  const githubData = await getGithubContributions(githubUsername)
 
   return (
     <div className="relative min-h-screen transition-colors duration-500">
@@ -24,6 +29,7 @@ export default function Home() {
         <Banner profile={profile} topTech={topTech} />
         <Profile profile={profile} techStacksByCategory={techStacksByCategory} />
         <Portfolio projects={projects} />
+        <GithubActivity data={githubData} username={githubUsername} profileUrl={profile.github_url} />
         <Contact profile={profile} />
         <Footer profile={profile} />
       </div>

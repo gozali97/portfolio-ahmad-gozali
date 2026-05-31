@@ -18,7 +18,7 @@ export default function Contact({ profile }) {
 
         {/* Header */}
         <div className="reveal flex items-baseline justify-between rule-b pb-4 mb-16">
-          <span className="mono-label text-accent">(04) — Contact</span>
+          <span className="mono-label text-accent">(05) — Contact</span>
           <span className="mono-label text-ink/40">Let&apos;s talk</span>
         </div>
 
