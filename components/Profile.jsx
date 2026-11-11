@@ -2,98 +2,74 @@
 
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
-export default function Profile({ profile, techStacksByCategory }) {
+const CATEGORIES = [
+  { key: 'language', label: 'Languages' },
+  { key: 'framework', label: 'Frameworks' },
+  { key: 'database', label: 'Databases' },
+  { key: 'tool', label: 'Tools' },
+]
+
+export default function Profile({ profile, techStacksByCategory = {} }) {
   const ref = useScrollAnimation()
-
-  const stats = [
-    { value: '5+', label: 'Years building for the web' },
-    { value: '20+', label: 'Projects shipped to production' },
-    { value: '8', label: 'Live products maintained' },
-    { value: '∞', label: 'Cups of coffee' },
-  ]
-
-  const categoryOrder = [
-    { key: 'language', label: 'Languages' },
-    { key: 'framework', label: 'Frameworks' },
-    { key: 'database', label: 'Databases' },
-    { key: 'tool', label: 'Tools' },
-  ]
+  const groups = CATEGORIES.map((c) => ({ ...c, items: techStacksByCategory[c.key] || [] })).filter(
+    (g) => g.items.length
+  )
 
   return (
-    <section id="profile" ref={ref} className="py-24 md:py-36">
-      <div className="mx-auto max-w-editorial px-6">
-
-        {/* Section header */}
-        <div className="reveal flex items-baseline justify-between rule-b pb-4 mb-16">
-          <span className="mono-label text-accent">(02) — About</span>
-          <span className="mono-label text-ink/40">Profile</span>
-        </div>
-
-        {/* Statement */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-24">
-          <div className="lg:col-span-8">
-            <h2 className="reveal display text-4xl md:text-6xl lg:text-7xl mb-10" data-delay="1">
-              I design and build <span className="text-accent italic" style={{ fontStyle: 'italic' }}>reliable</span> software, end to end.
+    <section id="profile" ref={ref} className="py-24 md:py-32">
+      <div className="mx-auto max-w-site px-6 md:px-8">
+        <div className="grid gap-10 lg:grid-cols-[1fr_1.25fr] lg:gap-20">
+          <div>
+            <p className="reveal eyebrow mb-5">About</p>
+            <h2 className="reveal heading text-4xl/[1.08] md:text-[52px]/[1.04]" data-delay="1">
+              Designing and building software, end to end.
             </h2>
-            <p className="reveal text-lg md:text-xl leading-relaxed text-ink/70 max-w-2xl whitespace-pre-line" data-delay="2">
-              {profile.about_long}
-            </p>
           </div>
+          <div className="reveal space-y-5 text-lg leading-relaxed text-ink/65 lg:pt-11" data-delay="2">
+            {(profile?.about_long || '').split(/\n\s*\n/).map((para, i) => (
+              <p key={i}>{para}</p>
+            ))}
+          </div>
+        </div>
 
-          {/* Stats — numbered list */}
-          <div className="lg:col-span-4">
-            <ul>
-              {stats.map((stat, idx) => (
-                <li
-                  key={stat.label}
-                  className="reveal flex items-baseline gap-4 py-5 rule-b first:rule-t"
-                  data-delay={idx + 1}
+        {groups.length > 0 && (
+          <div className="mt-20 md:mt-28">
+            <div className="reveal mb-8 flex items-end justify-between gap-6">
+              <h3 className="heading text-2xl">Toolkit</h3>
+              <p className="text-sm text-ink/50">Tools I reach for on most projects</p>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-2">
+              {groups.map((g, gi) => (
+                <div
+                  key={g.key}
+                  className="reveal rounded-3xl bg-surface p-6 md:p-8"
+                  data-delay={String((gi % 2) + 1)}
                 >
-                  <span className="mono-label text-ink/30 w-8">0{idx + 1}</span>
-                  <div className="flex-1">
-                    <div className="display text-4xl md:text-5xl">{stat.value}</div>
-                    <div className="text-sm text-ink/50 mt-1">{stat.label}</div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Tech stack — by category */}
-        <div className="reveal flex items-baseline justify-between rule-b pb-4 mb-12">
-          <h3 className="display text-2xl md:text-3xl">Toolkit</h3>
-          <span className="mono-label text-ink/40">What I work with</span>
-        </div>
-
-        <div className="space-y-12">
-          {categoryOrder.map(({ key, label }) => {
-            const items = techStacksByCategory[key] || []
-            if (!items.length) return null
-            return (
-              <div key={key} className="reveal grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
-                <div className="md:col-span-3">
-                  <span className="mono-label text-ink/40">{label}</span>
+                  <p className="mb-5 text-xs font-semibold uppercase tracking-[0.18em] text-ink/45">{g.label}</p>
+                  <ul className="divide-y divide-line/[0.08]">
+                    {g.items.map((t) => (
+                      <li key={t.id ?? t.name} className="flex items-center gap-4 py-3.5 first:pt-0 last:pb-0">
+                        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-paper">
+                          {t.image_url && (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img src={t.image_url} alt="" className="h-6 w-6 object-contain" loading="lazy" />
+                          )}
+                        </span>
+                        <span className="flex-1 font-semibold tracking-tight text-ink">{t.name}</span>
+                        {Number(t.years) > 0 && (
+                          <span className="text-sm tabular-nums text-ink/50">
+                            {t.years} {Number(t.years) === 1 ? 'year' : 'years'}
+                          </span>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <ul className="md:col-span-9 grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-6">
-                  {items.map((tech) => (
-                    <li key={tech.id} className="group flex items-center gap-3">
-                      <span className="w-9 h-9 grid place-items-center shrink-0">
-                        {tech.image_url
-                          ? <img src={tech.image_url} alt={tech.name} className="w-7 h-7 object-contain grayscale group-hover:grayscale-0 transition-all duration-500" />
-                          : <span className="mono-label text-ink/40">{tech.name.slice(0, 2)}</span>}
-                      </span>
-                      <div className="min-w-0">
-                        <div className="text-sm font-semibold truncate group-hover:text-accent transition-colors">{tech.name}</div>
-                        <div className="mono-label text-ink/30">{tech.proficiency}% · {tech.years}y</div>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )
-          })}
-        </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   )

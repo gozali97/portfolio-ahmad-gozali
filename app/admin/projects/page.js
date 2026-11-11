@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Plus, Edit, Trash2, ExternalLink, X, Save } from 'lucide-react'
+import FileUpload from '@/components/admin/FileUpload'
 
 const emptyProject = {
   title: '', short_description: '', full_description: '', image_url: '',
@@ -88,10 +89,7 @@ export default function ProjectsPage() {
             <textarea value={editing.short_description} onChange={(e) => setEditing({ ...editing, short_description: e.target.value })} rows={3} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 dark:text-white resize-none" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Image URL</label>
-              <input value={editing.image_url} onChange={(e) => setEditing({ ...editing, image_url: e.target.value })} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 dark:text-white" placeholder="/images/project.png" />
-            </div>
+            <FileUpload label="Image" kind="image" value={editing.image_url} onChange={(v) => setEditing(prev => ({ ...prev, image_url: v }))} placeholder="/images/project.png" />
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Demo URL</label>
               <input value={editing.demo_url} onChange={(e) => setEditing({ ...editing, demo_url: e.target.value })} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 dark:text-white" />

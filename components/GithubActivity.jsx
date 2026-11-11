@@ -1,13 +1,13 @@
 'use client'
 
 import { useMemo } from 'react'
-import { Github, ArrowUpRight, Flame } from 'lucide-react'
+import { Github, ArrowUpRight } from 'lucide-react'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 const DAY_LABELS = ['', 'Mon', '', 'Wed', '', 'Fri', '']
 const MONTH_LABELS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-// Vermilion accent opacity per contribution level (0 = empty).
+// Accent opacity per contribution level (0 = empty).
 const LEVEL_OPACITY = [0, 0.25, 0.5, 0.75, 1]
 
 function buildWeeks(contributions) {
@@ -72,159 +72,117 @@ export default function GithubActivity({ data, username, profileUrl }) {
     [data]
   )
 
+  const header = (
+    <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+      <div className="max-w-2xl">
+        <p className="reveal eyebrow mb-5">Activity</p>
+        <h2 className="reveal heading text-4xl/[1.08] md:text-[52px]/[1.04]" data-delay="1">
+          Writing code, week after week.
+        </h2>
+      </div>
+      {profileUrl && (
+        <a
+          href={profileUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="reveal btn-secondary btn-sm self-start md:self-auto"
+          data-delay="2"
+        >
+          <Github size={16} /> {username ? `@${username}` : 'GitHub'}
+          <ArrowUpRight size={15} />
+        </a>
+      )}
+    </div>
+  )
+
   // Graceful fallback if the API was unavailable at build time.
   if (!data || !weeks.length) {
     return (
       <section id="activity" ref={ref} className="py-24 md:py-32">
-        <div className="mx-auto max-w-editorial px-6">
-          <div className="reveal flex items-baseline justify-between rule-b pb-4 mb-10">
-            <span className="mono-label text-accent">(04) — Activity</span>
-            <span className="mono-label text-ink/40">GitHub</span>
-          </div>
-          <a
-            href={profileUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="reveal group inline-flex items-center gap-3 text-lg hover:text-accent transition-colors"
-          >
-            <Github size={22} />
-            <span className="link-sweep">View my GitHub profile</span>
-            <ArrowUpRight size={18} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-          </a>
-        </div>
+        <div className="mx-auto max-w-site px-6 md:px-8">{header}</div>
       </section>
     )
   }
 
   const stats = [
-    { value: data.total.toLocaleString(), label: 'Contributions / year' },
+    { value: data.total.toLocaleString(), label: 'Contributions this year' },
     { value: streaks.activeDays, label: 'Active days' },
-    { value: streaks.longest, label: 'Longest streak' },
-    { value: streaks.current, label: 'Current streak' },
+    { value: `${streaks.longest}d`, label: 'Longest streak' },
+    { value: `${streaks.current}d`, label: 'Current streak' },
   ]
 
   return (
     <section id="activity" ref={ref} className="py-24 md:py-32">
-      <div className="mx-auto max-w-editorial px-6">
+      <div className="mx-auto max-w-site px-6 md:px-8">
+        {header}
 
-        {/* Header */}
-        <div className="reveal flex items-baseline justify-between rule-b pb-4 mb-10">
-          <span className="mono-label text-accent">(04) — Activity</span>
-          <span className="mono-label text-ink/40">Last 12 months</span>
-        </div>
-
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
-          <h2 className="reveal display text-4xl md:text-6xl">
-            Code, <span className="text-accent italic" style={{ fontStyle: 'italic' }}>every</span> week.
-          </h2>
-          <a
-            href={profileUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="reveal group inline-flex items-center gap-2 mono-label text-ink/50 hover:text-accent transition-colors"
-            data-delay="1"
-          >
-            <Github size={16} /> @{username}
-            <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </a>
-        </div>
-
-        {/* Stats row */}
-        <div className="reveal grid grid-cols-2 md:grid-cols-4 gap-px rule mb-12 overflow-hidden" data-delay="1"
-          style={{ border: '1px solid rgb(var(--line) / 0.14)' }}>
-          {stats.map((s, i) => (
-            <div key={s.label} className="p-5 bg-paper"
-              style={{ borderLeft: i > 0 ? '1px solid rgb(var(--line) / 0.1)' : 'none' }}>
-              <div className="display text-3xl md:text-4xl flex items-center gap-2">
-                {s.label.includes('streak') && Number(s.value) > 0 && (
-                  <Flame size={20} className="text-accent" />
-                )}
-                {s.value}
-              </div>
-              <div className="mono-label text-ink/40 mt-1">{s.label}</div>
+        <dl className="reveal mt-12 grid grid-cols-2 gap-4 md:grid-cols-4" data-delay="1">
+          {stats.map((s) => (
+            <div key={s.label} className="rounded-3xl bg-surface p-6">
+              <dd className="text-3xl font-bold tracking-tight text-ink md:text-4xl">{s.value}</dd>
+              <dt className="mt-1.5 text-sm text-ink/55">{s.label}</dt>
             </div>
           ))}
-        </div>
+        </dl>
 
-        {/* Contribution graph */}
-        <div className="reveal overflow-x-auto pb-2" data-delay="2">
-          <div className="inline-flex flex-col gap-2 min-w-max">
-            {/* Month labels */}
-            <div className="flex pl-9">
-              <div className="relative flex-1" style={{ height: '1rem' }}>
-                {months.map((m) => (
-                  <span
-                    key={`${m.label}-${m.index}`}
-                    className="mono-label text-ink/40 absolute"
-                    style={{ left: `${m.index * 16}px` }}
-                  >
-                    {m.label}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Grid: day labels + week columns */}
-            <div className="flex gap-2">
-              {/* Day-of-week labels */}
-              <div className="grid grid-rows-7 gap-[3px] pr-1">
-                {DAY_LABELS.map((d, i) => (
-                  <span key={i} className="mono-label text-ink/40 h-[13px] leading-[13px] text-[0.55rem]">
-                    {d}
-                  </span>
-                ))}
+        <div className="reveal mt-4 rounded-3xl border border-line/[0.08] p-6 md:p-8" data-delay="2">
+          <div className="overflow-x-auto pb-1">
+            <div className="inline-flex min-w-max flex-col gap-2">
+              <div className="flex pl-9">
+                <div className="relative flex-1" style={{ height: '1rem' }}>
+                  {months.map((m) => (
+                    <span
+                      key={`${m.label}-${m.index}`}
+                      className="absolute text-xs text-ink/45"
+                      style={{ left: `${m.index * 16}px` }}
+                    >
+                      {m.label}
+                    </span>
+                  ))}
+                </div>
               </div>
 
-              {/* Weeks */}
-              <div className="flex gap-[3px]">
-                {weeks.map((week, wi) => (
-                  <div key={wi} className="grid grid-rows-7 gap-[3px]">
-                    {week.map((day, di) => {
-                      if (!day) return <div key={di} className="w-[13px] h-[13px]" />
-                      const op = LEVEL_OPACITY[day.level] ?? 0
-                      const isEmpty = day.level === 0
-                      return (
-                        <div
-                          key={di}
-                          title={`${day.count} contribution${day.count === 1 ? '' : 's'} on ${day.date}`}
-                          className="w-[13px] h-[13px] rounded-[2px] transition-transform hover:scale-125"
-                          style={{
-                            background: isEmpty
-                              ? 'rgb(var(--ink) / 0.07)'
-                              : `rgb(var(--accent) / ${op})`,
-                            outline: isEmpty ? 'none' : '1px solid rgb(var(--accent) / 0.15)',
-                            outlineOffset: '-1px',
-                          }}
-                        />
-                      )
-                    })}
-                  </div>
-                ))}
-              </div>
-            </div>
+              <div className="flex gap-2">
+                <div className="grid grid-rows-7 gap-[3px] pr-1">
+                  {DAY_LABELS.map((d, i) => (
+                    <span key={i} className="h-[13px] text-[10px] leading-[13px] text-ink/45">
+                      {d}
+                    </span>
+                  ))}
+                </div>
 
-            {/* Legend */}
-            <div className="flex items-center justify-between pl-9 mt-2">
-              <a
-                href={profileUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="mono-label text-ink/40 hover:text-accent transition-colors"
-              >
-                Learn how contributions count →
-              </a>
-              <div className="flex items-center gap-1.5">
-                <span className="mono-label text-ink/40">Less</span>
+                <div className="flex gap-[3px]">
+                  {weeks.map((week, wi) => (
+                    <div key={wi} className="grid grid-rows-7 gap-[3px]">
+                      {week.map((day, di) => {
+                        if (!day) return <div key={di} className="h-[13px] w-[13px]" />
+                        const op = LEVEL_OPACITY[day.level] ?? 0
+                        return (
+                          <div
+                            key={di}
+                            title={`${day.count} contribution${day.count === 1 ? '' : 's'} on ${day.date}`}
+                            className="h-[13px] w-[13px] rounded-[3px]"
+                            style={{
+                              background: day.level === 0 ? 'rgb(var(--ink) / 0.07)' : `rgb(var(--accent) / ${op})`,
+                            }}
+                          />
+                        )
+                      })}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-3 flex items-center justify-end gap-1.5 text-xs text-ink/45">
+                <span className="mr-1">Less</span>
                 {LEVEL_OPACITY.map((op, i) => (
                   <span
                     key={i}
-                    className="w-[11px] h-[11px] rounded-[2px]"
-                    style={{
-                      background: op === 0 ? 'rgb(var(--ink) / 0.07)' : `rgb(var(--accent) / ${op})`,
-                    }}
+                    className="h-[11px] w-[11px] rounded-[3px]"
+                    style={{ background: op === 0 ? 'rgb(var(--ink) / 0.07)' : `rgb(var(--accent) / ${op})` }}
                   />
                 ))}
-                <span className="mono-label text-ink/40">More</span>
+                <span className="ml-1">More</span>
               </div>
             </div>
           </div>

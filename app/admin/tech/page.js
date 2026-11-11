@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Plus, Edit, Trash2, X, Save } from 'lucide-react'
+import FileUpload from '@/components/admin/FileUpload'
 
 const emptyTech = { name: '', image_url: '', category: 'language', proficiency: 80, years: 1, desc: '' }
 
@@ -56,10 +57,7 @@ export default function TechStackPage() {
               </select>
             </div>
           </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Image URL</label>
-            <input value={editing.image_url} onChange={(e) => setEditing({ ...editing, image_url: e.target.value })} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 dark:text-white" placeholder="/images/tech.png" />
-          </div>
+          <FileUpload label="Image" kind="image" value={editing.image_url} onChange={(v) => setEditing(prev => ({ ...prev, image_url: v }))} placeholder="/images/tech.png" />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Proficiency ({editing.proficiency}%)</label>

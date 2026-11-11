@@ -3,10 +3,10 @@ import { FolderKanban, Cpu, User, TrendingUp } from 'lucide-react'
 
 export const metadata = { title: 'Dashboard - Admin' }
 
-export default function Dashboard() {
-  const profile = getProfile()
-  const projects = getProjects()
-  const techStacks = getTechStacks()
+export const dynamic = 'force-dynamic'
+
+export default async function Dashboard() {
+  const [profile, projects, techStacks] = await Promise.all([getProfile(), getProjects(), getTechStacks()])
 
   const stats = [
     { label: 'Total Projects', value: projects.length, icon: FolderKanban, color: 'bg-blue-500', bg: 'bg-blue-50 dark:bg-blue-900/20' },

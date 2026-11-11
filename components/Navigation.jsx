@@ -1,98 +1,93 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { Menu, X, ArrowUpRight } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { Menu, X } from 'lucide-react'
+
+const LINKS = [
+  { href: '#profile', label: 'About' },
+  { href: '#portfolio', label: 'Work' },
+  { href: '#activity', label: 'Activity' },
+  { href: '#contact', label: 'Contact' },
+]
 
 export default function Navigation({ resumeUrl }) {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    const onScroll = () => setScrolled(window.scrollY > 12)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const navItems = [
-    { href: '#banner', label: 'Index', no: '01' },
-    { href: '#profile', label: 'About', no: '02' },
-    { href: '#portfolio', label: 'Work', no: '03' },
-    { href: '#activity', label: 'Activity', no: '04' },
-    { href: '#contact', label: 'Contact', no: '05' },
-  ]
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [open])
 
   return (
-    <>
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 w-full ${
-          isScrolled ? 'bg-paper/85 backdrop-blur-md rule-b' : 'bg-transparent'
-        }`}
-      >
-        <div className="mx-auto max-w-editorial px-6 flex justify-between items-center h-16">
-          <a href="#banner" className="flex items-center gap-2 group">
-            <span className="display text-xl tracking-tight">Ahmad Gozali</span>
-            <span className="mono-label text-accent">©25</span>
-          </a>
+    <header
+      className={`fixed inset-x-0 top-0 z-40 transition-all duration-300 ${
+        scrolled || open
+          ? 'bg-paper/85 backdrop-blur-md shadow-[0_1px_0_rgb(var(--line)/0.08)]'
+          : 'bg-transparent'
+      }`}
+    >
+      <nav className="mx-auto flex h-[72px] max-w-site items-center justify-between px-6 md:px-8">
+        <a href="#banner" className="text-[15px] font-bold uppercase tracking-[0.2em] text-ink">
+          Ahmad Gozali
+        </a>
 
-          {/* Desktop */}
-          <div className="hidden md:flex items-center gap-9">
-            {navItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="group flex items-baseline gap-1.5 text-sm font-medium text-ink/70 hover:text-ink transition-colors"
-              >
-                <span className="mono-label text-ink/30 group-hover:text-accent transition-colors">{item.no}</span>
-                <span className="link-sweep">{item.label}</span>
-              </a>
-            ))}
-            {resumeUrl && (
-              <a href={resumeUrl} target="_blank" rel="noreferrer" className="btn-ink !py-2 !px-4 text-sm">
-                Resume <ArrowUpRight size={15} />
-              </a>
-            )}
-          </div>
-
-          {/* Mobile toggle */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-ink"
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+        <div className="hidden items-center gap-9 md:flex">
+          {LINKS.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              className="text-[15px] font-medium text-ink/60 transition-colors hover:text-ink"
+            >
+              {l.label}
+            </a>
+          ))}
+          {resumeUrl && (
+            <a href={resumeUrl} target="_blank" rel="noopener noreferrer" className="btn-primary btn-sm">
+              Resume
+            </a>
+          )}
         </div>
+
+        <button
+          onClick={() => setOpen((v) => !v)}
+          className="grid h-10 w-10 place-items-center rounded-full text-ink md:hidden"
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
+        >
+          {open ? <X size={22} /> : <Menu size={22} />}
+        </button>
       </nav>
 
-      {/* Mobile overlay */}
-      <div
-        className={`fixed inset-0 z-40 bg-paper flex flex-col justify-center px-8 gap-2 transition-all duration-500 md:hidden ${
-          mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
-      >
-        {navItems.map((item) => (
-          <a
-            key={item.href}
-            href={item.href}
-            onClick={() => setMobileMenuOpen(false)}
-            className="flex items-baseline gap-4 py-3 rule-b"
-          >
-            <span className="mono-label text-accent">{item.no}</span>
-            <span className="display text-5xl">{item.label}</span>
-          </a>
-        ))}
-        {resumeUrl && (
-          <a
-            href={resumeUrl}
-            target="_blank"
-            rel="noreferrer"
-            onClick={() => setMobileMenuOpen(false)}
-            className="mono-label mt-8 flex items-center gap-2 text-ink/60"
-          >
-            Download Resume <ArrowUpRight size={14} />
-          </a>
-        )}
-      </div>
-    </>
+      {open && (
+        <div className="h-[calc(100dvh-72px)] bg-paper px-6 pb-10 pt-6 md:hidden">
+          <ul className="space-y-1">
+            {LINKS.map((l) => (
+              <li key={l.href}>
+                <a
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  className="heading block py-3 text-4xl text-ink"
+                >
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          {resumeUrl && (
+            <a href={resumeUrl} target="_blank" rel="noopener noreferrer" className="btn-primary mt-10 w-full">
+              Download resume
+            </a>
+          )}
+        </div>
+      )}
+    </header>
   )
 }

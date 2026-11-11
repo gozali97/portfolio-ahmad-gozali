@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Save, User, FileText, Link as LinkIcon } from 'lucide-react'
+import FileUpload from '@/components/admin/FileUpload'
 
 export default function ProfilePage() {
   const [loading, setLoading] = useState(false)
@@ -19,6 +20,11 @@ export default function ProfilePage() {
 
   const handleChange = (e) => {
     const { name, value } = e.target
+    setForm(prev => ({ ...prev, [name]: value }))
+    setSaved(false)
+  }
+
+  const setField = (name, value) => {
     setForm(prev => ({ ...prev, [name]: value }))
     setSaved(false)
   }
@@ -65,15 +71,8 @@ export default function ProfilePage() {
         <div className="border-t border-gray-100 dark:border-gray-700 pt-6">
           <h3 className="text-lg font-semibold text-cyan-600 dark:text-cyan-400 mb-4 flex items-center gap-2"><FileText size={20} /> Media</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Avatar URL</label>
-              <input name="avatar_url" value={form.avatar_url} onChange={handleChange} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 dark:text-white" />
-              {form.avatar_url && <img src={form.avatar_url} alt="Preview" className="mt-2 w-16 h-16 rounded-full object-cover border" />}
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Resume URL</label>
-              <input name="resume_url" value={form.resume_url} onChange={handleChange} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 dark:text-white" />
-            </div>
+            <FileUpload label="Avatar" kind="image" preview="round" value={form.avatar_url} onChange={(v) => setField('avatar_url', v)} placeholder="/images/avatar.jpg" />
+            <FileUpload label="Resume (PDF)" kind="document" value={form.resume_url} onChange={(v) => setField('resume_url', v)} placeholder="/CV_Ahmad_Gozali.pdf" />
           </div>
         </div>
 

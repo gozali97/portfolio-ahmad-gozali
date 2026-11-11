@@ -1,0 +1,45 @@
+-- Initial schema: profile, projects, tech_stacks
+
+CREATE TABLE IF NOT EXISTS profile (
+  id INT PRIMARY KEY,
+  full_name VARCHAR(255) NOT NULL DEFAULT '',
+  headline VARCHAR(255) NOT NULL DEFAULT '',
+  titles JSON NULL,
+  about_short TEXT NULL,
+  about_long TEXT NULL,
+  avatar_url VARCHAR(500) NULL,
+  resume_url VARCHAR(500) NULL,
+  email VARCHAR(255) NULL,
+  github_url VARCHAR(500) NULL,
+  linkedin_url VARCHAR(500) NULL,
+  instagram_url VARCHAR(500) NULL,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS projects (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  short_description VARCHAR(500) NULL,
+  full_description TEXT NULL,
+  image_url VARCHAR(500) NULL,
+  technologies JSON NULL,
+  category VARCHAR(50) NOT NULL DEFAULT 'fullstack',
+  demo_url VARCHAR(500) NULL,
+  repo_url VARCHAR(500) NULL,
+  is_live TINYINT(1) NOT NULL DEFAULT 1,
+  highlights JSON NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS tech_stacks (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  image_url VARCHAR(500) NULL,
+  category VARCHAR(50) NOT NULL DEFAULT 'language',
+  proficiency INT NOT NULL DEFAULT 0,
+  years INT NOT NULL DEFAULT 0,
+  `desc` TEXT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

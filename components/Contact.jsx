@@ -1,85 +1,74 @@
 'use client'
 
-import { Github, Linkedin, Instagram, ArrowUpRight } from 'lucide-react'
+import { Github, Linkedin, Instagram, ArrowUpRight, Mail } from 'lucide-react'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 export default function Contact({ profile }) {
   const ref = useScrollAnimation()
 
   const socials = [
-    { url: profile.github_url, label: 'GitHub', Icon: Github },
-    { url: profile.linkedin_url, label: 'LinkedIn', Icon: Linkedin },
-    { url: profile.instagram_url, label: 'Instagram', Icon: Instagram },
+    { url: profile?.github_url, label: 'GitHub', Icon: Github },
+    { url: profile?.linkedin_url, label: 'LinkedIn', Icon: Linkedin },
+    { url: profile?.instagram_url, label: 'Instagram', Icon: Instagram },
   ].filter((s) => s.url)
 
   return (
-    <section id="contact" ref={ref} className="py-24 md:py-36">
-      <div className="mx-auto max-w-editorial px-6">
-
-        {/* Header */}
-        <div className="reveal flex items-baseline justify-between rule-b pb-4 mb-16">
-          <span className="mono-label text-accent">(05) — Contact</span>
-          <span className="mono-label text-ink/40">Let&apos;s talk</span>
-        </div>
-
-        {/* Big statement */}
-        <div className="reveal mb-12">
-          <p className="mono-label text-ink/40 mb-6">Have something in mind?</p>
-          <h2 className="display text-5xl md:text-8xl lg:text-9xl leading-[0.85]">
-            Let&apos;s build<br />
-            something <span className="text-accent italic" style={{ fontStyle: 'italic' }}>good.</span>
-          </h2>
-        </div>
-
-        {/* Email — giant link */}
-        <a
-          href={`mailto:${profile.email}`}
-          className="reveal group inline-flex items-center gap-4 rule-t rule-b py-8 w-full justify-between"
-          data-delay="1"
-        >
-          <span className="display text-2xl md:text-5xl break-all group-hover:text-accent transition-colors">
-            {profile.email}
-          </span>
-          <ArrowUpRight
-            size={40}
-            className="shrink-0 transition-transform duration-300 group-hover:translate-x-2 group-hover:-translate-y-2 group-hover:text-accent"
-          />
-        </a>
-
-        {/* Footer details grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pt-16">
-          <div className="reveal" data-delay="2">
-            <span className="mono-label text-ink/40 block mb-3">Based in</span>
-            <p className="text-lg">Yogyakarta, Indonesia</p>
-            <p className="text-ink/50 text-sm">Working worldwide · UTC+7</p>
-          </div>
-
-          <div className="reveal" data-delay="3">
-            <span className="mono-label text-ink/40 block mb-3">Availability</span>
-            <p className="text-lg flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-              Open to freelance & full-time
+    <section id="contact" ref={ref} className="rounded-t-3xl bg-night text-on-night">
+      <div className="mx-auto max-w-site px-6 pb-20 pt-24 md:px-8 md:pb-28 md:pt-32">
+        <div className="grid gap-14 lg:grid-cols-[1.4fr_1fr] lg:gap-20">
+          <div>
+            <p className="reveal eyebrow mb-5 !text-accent">Contact</p>
+            <h2 className="reveal heading text-[40px] sm:text-6xl lg:text-[68px]" style={{ letterSpacing: '-0.055em' }} data-delay="1">
+              Have a project in mind?
+              <span className="block text-accent">Let&apos;s talk.</span>
+            </h2>
+            <p className="reveal mt-7 max-w-lg text-lg leading-relaxed text-on-night/65" data-delay="2">
+              I&apos;m available for freelance work and full-time roles. Send a short note about what you&apos;re
+              building and I&apos;ll get back to you within a day or two.
             </p>
+            {profile?.email && (
+              <div className="reveal mt-10 flex flex-wrap items-center gap-3" data-delay="3">
+                <a
+                  href={`mailto:${profile.email}`}
+                  className="btn-primary !bg-on-night !text-night !shadow-none hover:!bg-accent"
+                >
+                  <Mail size={17} /> {profile.email}
+                </a>
+              </div>
+            )}
           </div>
 
-          <div className="reveal" data-delay="4">
-            <span className="mono-label text-ink/40 block mb-3">Elsewhere</span>
-            <ul className="space-y-2">
-              {socials.map(({ url, label, Icon }) => (
-                <li key={label}>
-                  <a
-                    href={url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="group inline-flex items-center gap-2 text-lg hover:text-accent transition-colors"
-                  >
-                    <Icon size={18} />
-                    <span className="link-sweep">{label}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <dl className="reveal space-y-8 self-end lg:pb-3" data-delay="2">
+            <div className="border-t border-on-night/15 pt-6">
+              <dt className="text-sm text-on-night/50">Based in</dt>
+              <dd className="mt-1 text-lg font-semibold">Yogyakarta, Indonesia · UTC+7</dd>
+            </div>
+            <div className="border-t border-on-night/15 pt-6">
+              <dt className="text-sm text-on-night/50">Availability</dt>
+              <dd className="mt-1 flex items-center gap-2.5 text-lg font-semibold">
+                <span className="h-2 w-2 rounded-full bg-emerald-400" /> Open to new projects
+              </dd>
+            </div>
+            {socials.length > 0 && (
+              <div className="border-t border-on-night/15 pt-6">
+                <dt className="text-sm text-on-night/50">Elsewhere</dt>
+                <dd className="mt-3 flex flex-wrap gap-2">
+                  {socials.map(({ url, label, Icon }) => (
+                    <a
+                      key={label}
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex h-10 items-center gap-2 rounded-full border border-on-night/20 px-4 text-sm font-semibold transition-colors hover:border-on-night/60"
+                    >
+                      <Icon size={16} /> {label}
+                      <ArrowUpRight size={14} className="text-on-night/50" />
+                    </a>
+                  ))}
+                </dd>
+              </div>
+            )}
+          </dl>
         </div>
       </div>
     </section>

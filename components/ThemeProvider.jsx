@@ -9,7 +9,10 @@ export function ThemeProvider({ children }) {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    const saved = localStorage.getItem('portfolio-theme') || 'light'
+    let saved = 'light'
+    try {
+      saved = localStorage.getItem('portfolio-theme') || 'light'
+    } catch {}
     setTheme(saved)
     setMounted(true)
   }, [])
@@ -24,7 +27,9 @@ export function ThemeProvider({ children }) {
       root.classList.add('light')
       root.classList.remove('dark')
     }
-    localStorage.setItem('portfolio-theme', theme)
+    try {
+      localStorage.setItem('portfolio-theme', theme)
+    } catch {}
   }, [theme, mounted])
 
   const toggleTheme = () => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))

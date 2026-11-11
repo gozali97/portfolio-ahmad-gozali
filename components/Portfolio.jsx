@@ -1,145 +1,133 @@
 'use client'
 
-import { useState, useMemo, useRef } from 'react'
-import { ArrowUpRight } from 'lucide-react'
+import { useMemo, useState } from 'react'
+import { ArrowUpRight, Github } from 'lucide-react'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
-export default function Portfolio({ projects }) {
+const LABELS = { all: 'All', fullstack: 'Full stack', frontend: 'Frontend', backend: 'Backend' }
+
+export default function Portfolio({ projects = [] }) {
   const [filter, setFilter] = useState('all')
-  const [active, setActive] = useState(null)
   const ref = useScrollAnimation()
-  const previewRef = useRef(null)
 
-  const categories = useMemo(() => {
-    const cats = [...new Set(projects.map((p) => p.category))]
-    return ['all', ...cats]
-  }, [projects])
-
-  const filteredProjects =
-    filter === 'all' ? projects : projects.filter((p) => p.category === filter)
-
-  const handleMouseMove = (e) => {
-    if (!previewRef.current) return
-    previewRef.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`
-  }
+  const categories = useMemo(() => ['all', ...new Set(projects.map((p) => p.category).filter(Boolean))], [projects])
+  const visible = filter === 'all' ? projects : projects.filter((p) => p.category === filter)
 
   return (
-    <section id="portfolio" ref={ref} className="py-24 md:py-36" onMouseMove={handleMouseMove}>
-      <div className="mx-auto max-w-editorial px-6">
-
-        {/* Header */}
-        <div className="reveal flex items-baseline justify-between rule-b pb-4 mb-10">
-          <span className="mono-label text-accent">(03) — Work</span>
-          <span className="mono-label text-ink/40">{filteredProjects.length} projects</span>
-        </div>
-
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-          <h2 className="reveal display text-5xl md:text-7xl">Selected Works</h2>
-          <div className="reveal flex flex-wrap gap-x-5 gap-y-2" data-delay="1">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setFilter(cat)}
-                className={`mono-label transition-colors ${
-                  filter === cat ? 'text-accent' : 'text-ink/40 hover:text-ink'
-                }`}
-              >
-                {filter === cat ? '— ' : ''}{cat}
-              </button>
-            ))}
+    <section id="portfolio" ref={ref} className="rounded-t-3xl bg-surface py-24 md:py-32">
+      <div className="mx-auto max-w-site px-6 md:px-8">
+        <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-2xl">
+            <p className="reveal eyebrow mb-5">Selected work</p>
+            <h2 className="reveal heading text-4xl/[1.08] md:text-[52px]/[1.04]" data-delay="1">
+              Products I&apos;ve built and shipped.
+            </h2>
           </div>
+
+          {categories.length > 2 && (
+            <div className="reveal flex flex-wrap gap-2" data-delay="2" role="tablist" aria-label="Filter projects">
+              {categories.map((c) => (
+                <button
+                  key={c}
+                  role="tab"
+                  aria-selected={filter === c}
+                  onClick={() => setFilter(c)}
+                  className={`h-10 rounded-full px-5 text-sm font-semibold transition-colors ${
+                    filter === c ? 'bg-ink text-paper' : 'bg-paper text-ink/60 hover:text-ink'
+                  }`}
+                >
+                  {LABELS[c] || c}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* Index list */}
-        <ul className="rule-t">
-          {filteredProjects.map((project, idx) => (
-            <li
-              key={project.id}
-              onMouseEnter={() => setActive(project)}
-              onMouseLeave={() => setActive(null)}
-              className="reveal group rule-b"
-            >
-              <a
-                href={project.demo_url || project.repo_url || '#'}
-                target="_blank"
-                rel="noreferrer"
-                className="grid grid-cols-12 items-center gap-4 py-7 md:py-9 transition-colors duration-300 group-hover:text-accent"
-              >
-                <span className="col-span-2 md:col-span-1 mono-label text-ink/40 group-hover:text-accent transition-colors">
-                  {String(idx + 1).padStart(2, '0')}
-                </span>
-
-                <div className="col-span-10 md:col-span-6">
-                  <h3 className="display text-3xl md:text-5xl leading-none">{project.title}</h3>
-                </div>
-
-                <div className="hidden md:flex md:col-span-3 flex-wrap gap-x-3 gap-y-1">
-                  {(project.technologies || []).slice(0, 4).map((tech) => (
-                    <span key={tech} className="mono-label text-ink/40 group-hover:text-accent/70 transition-colors">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="col-span-12 md:col-span-2 flex items-center justify-between md:justify-end gap-3">
-                  <span className="mono-label text-ink/40 group-hover:text-accent transition-colors capitalize">
-                    {project.category}
-                  </span>
-                  <ArrowUpRight
-                    size={26}
-                    className="shrink-0 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-                  />
-                </div>
-              </a>
-
-              {/* Mobile thumbnail (cursor preview is desktop-only) */}
-              <div className="md:hidden pb-7 -mt-2">
-                <img
-                  src={project.image_url || '/images/placeholder.png'}
-                  alt={project.title}
-                  className="w-full aspect-video object-cover rule"
-                  style={{ border: '1px solid rgb(var(--line) / 0.15)' }}
-                  loading="lazy"
-                />
-                <p className="text-sm text-ink/60 mt-3">{project.short_description}</p>
-              </div>
-            </li>
+        <div className="mt-14 grid gap-6 md:grid-cols-2 md:gap-8">
+          {visible.map((p) => (
+            <ProjectCard key={p.id ?? p.title} project={p} />
           ))}
-        </ul>
-
-        {filteredProjects.length === 0 && (
-          <div className="text-center py-20 mono-label text-ink/30">
-            No projects in this category yet.
-          </div>
-        )}
-      </div>
-
-      {/* Cursor-following preview (desktop) */}
-      <div
-        ref={previewRef}
-        className="pointer-events-none fixed top-0 left-0 z-30 hidden md:block will-change-transform"
-        style={{ transition: 'transform 0.15s cubic-bezier(0.16,1,0.3,1)' }}
-      >
-        <div
-          className={`relative -translate-x-1/2 -translate-y-1/2 w-[22rem] aspect-[16/11] overflow-hidden transition-all duration-300 ${
-            active ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
-          }`}
-          style={{ border: '1px solid rgb(var(--line) / 0.25)', boxShadow: '0 30px 60px -20px rgb(0 0 0 / 0.35)' }}
-        >
-          {active && (
-            <img
-              src={active.image_url || '/images/placeholder.png'}
-              alt=""
-              className="w-full h-full object-cover"
-            />
-          )}
-          {active?.is_live && (
-            <span className="absolute top-3 left-3 mono-label bg-accent text-paper px-2 py-1 flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-paper animate-pulse" /> Live
-            </span>
-          )}
         </div>
       </div>
     </section>
+  )
+}
+
+function ProjectCard({ project: p }) {
+  const href = p.demo_url || p.repo_url
+  return (
+    <article className="group flex flex-col overflow-hidden rounded-3xl bg-paper transition-shadow duration-300 hover:shadow-[0_30px_60px_-30px_rgb(22_22_22/0.3)]">
+      <a
+        href={href || undefined}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="relative block aspect-[16/10] overflow-hidden bg-surface"
+        tabIndex={-1}
+        aria-hidden="true"
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={p.image_url || '/images/placeholder.png'}
+          alt=""
+          loading="lazy"
+          className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
+        />
+        {p.is_live && (
+          <span className="absolute left-4 top-4 flex items-center gap-1.5 rounded-full bg-paper/90 px-3 py-1 text-xs font-semibold text-ink backdrop-blur">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Live
+          </span>
+        )}
+      </a>
+
+      <div className="flex flex-1 flex-col p-6 md:p-8">
+        <div className="flex items-start justify-between gap-4">
+          <h3 className="heading text-2xl" style={{ letterSpacing: '-0.03em' }}>
+            {href ? (
+              <a href={href} target="_blank" rel="noopener noreferrer" className="link-underline">
+                {p.title}
+              </a>
+            ) : (
+              p.title
+            )}
+          </h3>
+          <div className="flex shrink-0 items-center gap-1">
+            {p.repo_url && (
+              <a
+                href={p.repo_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${p.title} source code`}
+                className="grid h-9 w-9 place-items-center rounded-full text-ink/50 transition-colors hover:bg-surface hover:text-ink"
+              >
+                <Github size={18} />
+              </a>
+            )}
+            {p.demo_url && (
+              <a
+                href={p.demo_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Open ${p.title}`}
+                className="grid h-9 w-9 place-items-center rounded-full bg-ink text-paper transition-transform group-hover:rotate-45"
+              >
+                <ArrowUpRight size={18} />
+              </a>
+            )}
+          </div>
+        </div>
+
+        <p className="mt-3 leading-relaxed text-ink/60">{p.short_description}</p>
+
+        {p.technologies?.length > 0 && (
+          <ul className="mt-auto flex flex-wrap gap-2 pt-6">
+            {p.technologies.slice(0, 5).map((t) => (
+              <li key={t} className="rounded-full bg-surface px-3 py-1 text-xs font-medium text-ink/65">
+                {t}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </article>
   )
 }

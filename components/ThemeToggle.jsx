@@ -11,23 +11,9 @@ export default function ThemeToggle() {
     <button
       onClick={toggleTheme}
       aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
-      className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full grid place-items-center bg-paper transition-all duration-300 hover:text-accent"
-      style={{ border: '1px solid rgb(var(--line) / 0.2)' }}
+      className="fixed bottom-5 right-5 z-50 grid h-11 w-11 place-items-center rounded-full border border-line/10 bg-paper/90 text-ink/70 shadow-[0_10px_30px_-12px_rgb(22_22_22/0.35)] backdrop-blur transition-colors hover:text-ink"
     >
-      <div className="relative w-5 h-5">
-        <Sun
-          size={20}
-          className={`absolute inset-0 transition-all duration-500 ${
-            isDark ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-50'
-          }`}
-        />
-        <Moon
-          size={20}
-          className={`absolute inset-0 transition-all duration-500 ${
-            isDark ? 'opacity-0 rotate-90 scale-50' : 'opacity-100 rotate-0 scale-100'
-          }`}
-        />
-      </div>
+      {isDark ? <Sun size={18} /> : <Moon size={18} />}
     </button>
   )
 }
